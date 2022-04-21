@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/pages/*": ["pages/*"],
+            "@/components/*": ["components/*"],
+            "@/data/*": ["utils/data/*"],
+            "@/utils/*": ["utils/*"],
+            "@/func/*": ["utils/functions*"],
+            "@/models/*": ["utils/models/*"],
+            "@/public/*": ["public/*"]
+        }
+    },
+    "exclude": ["node_modules"]
+}
