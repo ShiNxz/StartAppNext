@@ -22,6 +22,10 @@ const handler = async (req, res) => {
 
     const hash = await bcrypt.compare(password, user.password)
 
+    const userr = await User.where("username").equals("test1").limit(1)
+    userr[0].page = { name: 'אמיר 2' }
+    await userr[0].save()    
+
     if (hash) {
       const token = jwt.sign({
         userId: user.userId

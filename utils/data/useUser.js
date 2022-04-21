@@ -7,7 +7,6 @@ const getUser = () => axios.get(`/api/auth/auth`).then(res => res.data)
 
 const useUser = () => {
   const Router = useRouter()
-
   const { data, mutate, error } = useSWR("useUser", getUser)
 
   const loading = !data && !error

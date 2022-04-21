@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        trim: true,
+        lowercase: true
     },
     email: {
         type: String,
@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
         name: {
             type: String, 
         },
+    },
+    page: {
+        type: Object,
+        required: false
     },
     created_time: { type: Number, default: Date.time() },
 }, {

@@ -30,7 +30,7 @@ const PasswordInput = ( props ) => {
 
     return <div className="my-2">
         <label htmlFor={props.id}>{props.name}</label>
-        <input type={showPassword ? 'text' : 'password'} onChange={handleChange} id={props.id} className={`rounded-lg duration-200 border-transparent flex-1 appearance-none border border-gray-300 w-4/5 py-3 px-5 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${error ? "border-red-600 focus:ring-red-600" : validate.validate && "border-green-600 focus:ring-green-600"} focus:border-transparent`} name={props.id} placeholder={props.name}/>
+        <input disabled={props.loading} type={showPassword ? 'text' : 'password'} autoComplete='current-password' onChange={handleChange} id={props.id} className={`rounded-lg duration-200 border-transparent flex-1 appearance-none border border-gray-300 w-4/5 py-3 px-5 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${error ? "border-red-600 focus:ring-red-600" : validate.validate && "border-green-600 focus:ring-green-600"} focus:border-transparent`} name={props.id} placeholder={props.name}/>
         
         <IconButton aria-label="toggle password visibility" onClick={() => setShowPassword(!showPassword)} edge="end">
             {showPassword ? <VisibilityOff /> : <Visibility />}

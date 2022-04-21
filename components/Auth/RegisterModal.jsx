@@ -8,16 +8,16 @@ import Collapse from '@mui/material/Collapse'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 import Button from '@/components/UI/Button'
-import UsernameInput from '@/components/UI/UsernameInput'
-import EmailInput from '@/components/UI/EmailInput'
-import PasswordInput from '@/components/UI/PasswordInput'
+import UsernameInput from '@/components/Auth/UsernameInput'
+import EmailInput from '@/components/Auth/EmailInput'
+import PasswordInput from '@/components/Auth/PasswordInput'
 
-import axios from 'axios'
 import Router from 'next/router'
 import cookie from 'js-cookie'
 
 import userContext from '@/data/UserContext'
 import AppContext from '@/data/AppContext'
+import Axios from '@/utils/functions/Axios'
 
 const Register = ( props ) => {
     const [username, setUsername] = useState(false)
@@ -25,6 +25,7 @@ const Register = ( props ) => {
     const [password, setPassword] = useState(false)
     const [rules, setRules] = useState(false)
     const [adverts, setAdverts] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const { mutate } = useContext(userContext)
     const App = useContext(AppContext)
@@ -41,6 +42,7 @@ const Register = ( props ) => {
         })
 
         App.setProgress(30)
+        setLoading(true)
 
         const data = {
             email: email.input,
@@ -48,35 +50,32 @@ const Register = ( props ) => {
             password: password.input,
             adverts,
         }
-        axios.post('/api/auth/register', data, {
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json;charset=UTF-8",
-            }
-        })
-        .then(({data}) => {
 
+        const { success, data: fetchedData, error } = await Axios('/api/auth/register', data, 'POST')
+
+        success ?
+        (
             setAlert({
                 show: true,
                 style: "success",
                 message: "המשתמש נוצר בהצלחה! אנא המתן..."
-            })
+            }),
 
             setTimeout(() => {
-                cookie.set('token', data.token, {expires: 30})
+                cookie.set('token', fetchedData.token, {expires: 30})
                 Router.push('/')
                 mutate()
                 props.setOpen(false)
             }, 2000)
-        })
-        .catch((e) => {
+        ) :
             setAlert({
                 show: true,
                 style: "error",
-                message: e.response.data.message
+                message: error.response.data.message
             })
-        })
+        
         App.setProgress(100)
+        setLoading(false)
     }
 
     const LoginHandle = () => {
@@ -107,9 +106,9 @@ const Register = ( props ) => {
 
                                 <div className="flex flex-col mb-2 ">
 
-                                    <UsernameInput id="username" name="שם משתמש" status={setUsername} />
-                                    <EmailInput id="email" name="כתובת אימייל" status={setEmail}/>
-                                    <PasswordInput id="password" name="סיסמה" status={setPassword}/>
+                                    <UsernameInput loading={loading} id="username" name="שם משתמש" status={setUsername} />
+                                    <EmailInput loading={loading} id="email" name="כתובת אימייל" status={setEmail}/>
+                                    <PasswordInput loading={loading} id="password" name="סיסמה" status={setPassword}/>
 
                                     <FormControlLabel control={<Checkbox checked={rules} onChange={() => setRules(!rules)} />} label={<div className='text-neutral-600'> <span>אני מאשר את </span> <a className="duration-200 decoration-[#ffffff00] hover:decoration-neutral-500 underline decoration-1 hover:text-black">תנאי השימוש</a></div>} />
                                     <FormControlLabel control={<Checkbox checked={adverts} onChange={() => setAdverts(!adverts)} />} label={<div className='text-neutral-600'> <span>אני מאשר קבלת אימיילים על מבצעים ועדכונים </span> <a className="duration-200 decoration-[#ffffff00] hover:decoration-neutral-500 underline decoration-1 hover:text-black">(מידע נוסף)</a></div>} />
@@ -117,7 +116,7 @@ const Register = ( props ) => {
                                 </div>
 
                                 <div className="flex w-full my-4">
-                                    <Button className="w-full" style="blue">הרשם</Button>
+                                    <Button loading={loading} className="w-full" style="blue">הרשם</Button>
                                 </div>
                             </form>
 

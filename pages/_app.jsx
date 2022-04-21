@@ -25,7 +25,7 @@ const cacheRtl = createCache({
 const theme = createTheme({
   direction: 'rtl',
   typography: {
-    fontFamily: 'Heebo',
+    fontFamily: 'Rubik',
   }
 })
 
