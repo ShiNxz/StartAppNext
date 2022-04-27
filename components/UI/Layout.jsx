@@ -10,8 +10,7 @@ import Footer from './Footer'
 
 const Layout = ({ children }) => {
     const { loading: userLoading } = useContext(userContext)
-    const { loading: appLoading } = useContext(AppContext)
-    const { setProgress, progress } = useContext(AppContext)
+    const { loading: appLoading, layout, setLayout, setProgress, progress } = useContext(AppContext)
 
     useEffect(() => {
         appLoading && setProgress(30)
@@ -22,11 +21,11 @@ const Layout = ({ children }) => {
         <Loading loading={appLoading} /> 
         <LoadingBar color='#0099ff' progress={progress} onLoaderFinished={() => setProgress(0)} />
         <div className='flex flex-col content-between'>
-        <Navbar/>
-        <main>
-            { children }
-        </main>
-        <Footer/>
+            { layout && <Navbar/> }
+            <main>
+                { children }
+            </main>
+            { layout && <Footer/> }
         </div>
         
     </>

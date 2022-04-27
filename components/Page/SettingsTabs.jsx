@@ -19,7 +19,7 @@ const MainInformation = () => {
         {
             name: 'name',
             title: 'שם פרטי',
-            initValue: data.name,
+            initValue: data?.name,
             helper: 'השם שיוצג בפרופיל',
             validate: (input) => {
                 if(input === '') return 'יש להקליד שם'
@@ -30,7 +30,7 @@ const MainInformation = () => {
         {
             name: 'title',
             title: 'תפקיד',
-            initValue: data.title,
+            initValue: data?.title,
             helper: 'כותרת',
             validate: (input) => {
                 if(input === '') return 'יש להקליד שם'

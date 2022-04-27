@@ -7,27 +7,27 @@ import { useState } from 'react'
 import SettingsTabs from './SettingsTabs'
 import Button from '../UI/Button'
 
+export const TabPanel = ({ children, index, value }) => {      
+	return (
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+		>
+			{value === index && (
+				<Box className='p-12 py-4'>
+					{children}
+				</Box>
+			)}
+		</div>
+	)
+}
+
 const SideBar = ({ menu, setMenu }) => {
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => setValue(newValue)
-
-	const TabPanel = ({ children, index }) => {      
-		return (
-			<div
-				role="tabpanel"
-				hidden={value !== index}
-				id={`simple-tabpanel-${index}`}
-				aria-labelledby={`simple-tab-${index}`}
-			>
-				{value === index && (
-					<Box className='p-12 py-4'>
-						{children}
-					</Box>
-				)}
-			</div>
-		)
-	}
 
     return (
         <SwipeableDrawer
@@ -46,7 +46,7 @@ const SideBar = ({ menu, setMenu }) => {
             	</Box>
 				{
 					SettingsTabs.map((tab, index) =>
-						<TabPanel key={tab.name} index={index}>{ tab.component }<Button onClick={() => setMenu(false)} style='blue' className='w-[90%] absolute bottom-4 left-0 right-0 m-auto'>סגירה</Button></TabPanel>
+						<TabPanel value={value} key={tab.name} index={index}>{ tab.component }<Button onClick={() => setMenu(false)} style='blue' className='w-[90%] absolute bottom-4 left-0 right-0 m-auto'>סגירה</Button></TabPanel>
 					)
 				}
             </div>
