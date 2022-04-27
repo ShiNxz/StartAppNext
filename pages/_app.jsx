@@ -1,7 +1,6 @@
 import '../styles/globals.scss'
 import Head from 'next/head'
 import Layout from '@/components/UI/Layout'
-import Loading from '@/components/UI/Loading'
 
 import { AppContextProvider } from '@/data/AppContext'
 import userContext from '@/data/UserContext'
@@ -31,14 +30,12 @@ const theme = createTheme({
 
 const App = ( props ) => {
   const { Component, pageProps } = props
-
   const { loading, loggedIn, user, mutate, logout } = useUser()
-  //console.log(loading, loggedIn, user)
 
   return (
     <>
       <Head>
-        <title>Page title</title>
+        <title>StartApp</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
@@ -47,7 +44,7 @@ const App = ( props ) => {
           <AppContextProvider>
             <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }} TransitionComponent={Collapse} >
               <userContext.Provider value={{ loading, loggedIn, user, mutate, logout }}>
-                { loading ? <Loading/> : <Layout><Component {...pageProps}/></Layout>}
+                <Layout><Component {...pageProps}/></Layout>
               </userContext.Provider>
             </SnackbarProvider>
           </AppContextProvider>

@@ -1,7 +1,3 @@
-
-import Dialog from '@mui/material/Dialog'
-import Divider from '@mui/material/Divider'
-
 import Button from '@/components/UI/Button'
 import UsernameInput from '@/components/Auth/UsernameInput'
 import PasswordInput from '@/components/Auth/PasswordInput'
@@ -17,6 +13,7 @@ import Collapse from '@mui/material/Collapse'
 
 import { useState, useContext } from 'react'
 import Axios from '@/utils/functions/Axios'
+import Modal from './../UI/Modal';
 
 const Login = ( props ) => {
     const [username, setUsername] = useState(false)
@@ -43,7 +40,7 @@ const Login = ( props ) => {
 
         const { success, data: fetchedData, error } = await Axios('/api/auth/login', data, 'POST')
 		
-        success ?
+        success && !fetchedData.error ?
 		(
             setAlert({
                 show: true,
@@ -61,7 +58,7 @@ const Login = ( props ) => {
             setAlert({
                 show: true,
                 style: "error",
-                message: error.response.data.message
+                message: fetchedData.message || error.response.data.message
             })
 
 		setLoading(false)
@@ -74,49 +71,25 @@ const Login = ( props ) => {
     }
 
   	return (
-    	<div>
-    	    <Dialog
-    	        open={props.open}
-    	        keepMounted
-    	        onClose={() => props.setOpen(false)}
-    	        aria-describedby="alert-dialog-slide-description"
-    	    >
-
-    	        <div className="flex flex-col min-w-[30rem] max-w-xl px-4 py-8 bg-white rounded-lg shadow sm:px-6 md:px-8 lg:px-5">
-    	            <div className="self-center mb-2 pb-2 text-xl font-semibold text-gray-800"> התחברות </div>
-
-    	                <Divider />
-
-    	                <div className="p-6 mt-4">
-    	                    <form onSubmit={handleLogin}>
-
-    	                        <Collapse in={alert.show}>
-    	                            <Alert severity={alert.style} sx={{ mb: 2 }}>{alert.message}</Alert>
-    	                        </Collapse>
-
-    	                        <div className="flex flex-col mb-2 ">
-
-    	                            <UsernameInput loading={loading} id="login_username" name="שם משתמש / כתובת אימייל" status={setUsername} />
-    	                            <PasswordInput loading={loading} id="login_password" name="סיסמה" status={setPassword}/>
-
-    	                        </div>
-
-    	                        <div className="flex w-full my-4">
-    	                            <Button loading={loading} className="w-full" style="purple">התחבר</Button>
-    	                        </div>
-    	                    </form>
-		
-    	                </div>
-
-    	                <Divider />
-
-    	                <div className="justify-center text-sm text-center text-gray-500 flex-items-center pt-6">
-    	                    אין ברשותך משתמש? <a onClick={RegisterHandle} target="_blank" className="text-sm text-blue-500 underline hover:text-blue-700">הרשם</a>
-    	                </div>
+        <Modal 
+            title='התחברות'
+            footer={<span>אין ברשותך משתמש? <a onClick={RegisterHandle} target="_blank" className="text-sm text-blue-500 underline hover:text-blue-700">הרשם</a></span>}
+            open={props.open}
+            setOpen={props.setOpen}
+        >
+    	    <form onSubmit={handleLogin}>
+    	        <Collapse in={alert.show}>
+    	            <Alert severity={alert.style} sx={{ mb: 2 }}>{alert.message}</Alert>
+    	        </Collapse>
+    	        <div className="flex flex-col mb-2 ">
+    	            <UsernameInput loading={loading} id="login_username" name="שם משתמש / כתובת אימייל" status={setUsername} />
+    	            <PasswordInput loading={loading} id="login_password" name="סיסמה" status={setPassword}/>
     	        </div>
-
-    	    </Dialog>
-    	</div>
+    	        <div className="flex w-full my-4">
+    	            <Button loading={loading} className="w-full" style="cyan">התחבר</Button>
+    	        </div>
+    	    </form>
+        </Modal>
   	)
 }
 

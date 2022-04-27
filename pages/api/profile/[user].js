@@ -5,10 +5,9 @@ const handler = async (req, res) => {
   await db()
 
   if (req.method === "GET") {
-    let user = await User.where('username').equals(req.query.user).select('page').limit(1)
-    if(user.length < 1) return res.status(404).json({ error: `Didn't find any user.` })
-    user = user[0].page
-    return res.status(200).json({ user })
+    let user = await User.where('username').equals(req.query.user).select(['page', 'userId']).limit(1)
+    if(user.length < 1) return res.status(200).json({ error: `Didn't find any user.` })
+    return res.status(200).json({ userId: user[0].userId, ...user[0].page })
 
   } else res.status(401).end()
 }

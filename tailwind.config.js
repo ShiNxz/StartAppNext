@@ -5,7 +5,11 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        'low': ['0 10px 15px -3px rgb(0 0 0 / 0.06)', '0 4px 6px -4px rgb(0 0 0 / 0.06)']
+      }
+    },
   },
   corePlugins: {
     container: false
@@ -15,8 +19,8 @@ module.exports = {
       addComponents({
         '.container': {
           width: '100%',
-          // marginLeft: 'auto',
-          // marginRight: 'auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           // paddingLeft: '2rem',
           // paddingRight: '2rem',
           '@screen sm': {

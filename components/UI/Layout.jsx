@@ -4,24 +4,30 @@ import { useContext, useEffect } from 'react'
 import Navbar from '@/components/UI/Navbar'
 import userContext from '@/data/UserContext'
 import AppContext from '@/data/AppContext'
+import Loading from '@/components/UI/LoadingBackdrop'
+import FloatingBar from './FloatingBar'
+import Footer from './Footer'
 
 const Layout = ({ children }) => {
-    const { loading } = useContext(userContext)
-    const AppCon = useContext(AppContext)
+    const { loading: userLoading } = useContext(userContext)
+    const { loading: appLoading } = useContext(AppContext)
+    const { setProgress, progress } = useContext(AppContext)
 
     useEffect(() => {
-        loading && AppCon.setProgress(30)
-        !loading && AppCon.setProgress(100)
-    }, [ loading ] )
-
+        appLoading && setProgress(30)
+        !appLoading && setProgress(100)
+    }, [ appLoading ] )
+    
     return <>
+        <Loading loading={appLoading} /> 
+        <LoadingBar color='#0099ff' progress={progress} onLoaderFinished={() => setProgress(0)} />
+        <div className='flex flex-col content-between'>
         <Navbar/>
-        <LoadingBar color='#0099ff' progress={AppCon.progress} onLoaderFinished={() => AppCon.setProgress(0)} />
         <main>
             { children }
         </main>
-        { // footer 
-        }
+        <Footer/>
+        </div>
         
     </>
 }

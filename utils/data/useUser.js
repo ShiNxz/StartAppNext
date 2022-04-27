@@ -1,16 +1,14 @@
 import useSWR from 'swr'
-import axios from 'axios'
 import cookie from 'js-cookie'
 import { useRouter } from 'next/router'
-
-const getUser = () => axios.get(`/api/auth/auth`).then(res => res.data)
+import fetcher from '@/utils/fetcher';
 
 const useUser = () => {
   const Router = useRouter()
-  const { data, mutate, error } = useSWR("useUser", getUser)
+  const { data, mutate, error } = useSWR('/api/auth/auth', fetcher)
 
   const loading = !data && !error
-  const loggedIn = !error && data
+  const loggedIn = !!data?.userId && !error
 
   const logout = () => {
     cookie.remove('token')

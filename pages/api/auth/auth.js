@@ -8,7 +8,7 @@ const handler = async (req, res) => {
     await db()
 
     if (!('token' in req.cookies))
-      return res.status(401).json({message: 'Unable to auth'})
+      return res.status(200).json({ error: 'error to auth' })
 
     let decoded
     const token = req.cookies.token
@@ -16,15 +16,23 @@ const handler = async (req, res) => {
     if (token) {
       try {
         decoded = jwt.verify(token, process.env.JWT_SECRET)
-        const user = await User.findOne( { userId: decoded.userId } )
-        // pull data from db and send it minimized to the user
+        let user = await User.findOne( { userId: decoded.userId } )
+        
+        user = {
+          userId: user.userId,
+          username: user.username,
+          email: user.email,
+          page: user.page,
+          // ...
+        }
+
         decoded = user
       } catch (e) {
         console.error(e)
       }
     }
 
-    return decoded ? res.status(200).json(decoded) : res.status(401).json({message: 'Unable to auth'})
+    return decoded ? res.status(200).json(decoded) : res.status(200).json({ error: 'Unable to auth' })
   }
 }
 

@@ -1,7 +1,12 @@
 import mongoose from 'mongoose'
 
-Date.prototype.toUnixTime = function() { return this.getTime()/1000|0 };
-Date.time = function() { return new Date().toUnixTime(); }
+Date.prototype.toUnixTime = function() {
+    return this.getTime()/1000|0
+}
+
+Date.time = function() {
+    return new Date().toUnixTime()
+}
 
 const UserSchema = new mongoose.Schema({
     userId: String,
@@ -11,6 +16,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         lowercase: true
     },
+    avatar: String,
     email: {
         type: String,
         unique: true,
@@ -45,9 +51,22 @@ const UserSchema = new mongoose.Schema({
         type: Object,
         required: false
     },
-    created_time: { type: Number, default: Date.time() },
+    created_time: {
+        type: Number,
+        default: Date.time()
+    },
+    updatedAt: {
+        type: Number,
+        default: Date.time()
+    }
+
 }, {
     collection: 'Users'
+})
+
+UserSchema.pre('save', function(next) {
+    this.updatedAt = Date.time()
+    next()
 })
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)
