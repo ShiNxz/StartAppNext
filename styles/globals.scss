@@ -18,6 +18,14 @@ main {
   @apply min-h-[90.5vh]
 }
 
+.ltr {
+    direction: 'ltr';
+}
+
+.rtl {
+    direction: 'rtl';
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -25,7 +33,7 @@ a {
   @apply text-neutral-700 hover:text-neutral-900 duration-200
 }
 
-h1, h2, h3, h4, h5, h6, h7 {
+h1, h2, h3, h4, h5, h6 {
   @apply block font-medium text-gray-800 mb-2
 }
 

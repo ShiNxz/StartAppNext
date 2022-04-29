@@ -8,42 +8,48 @@ import db from '@/utils/db'
 import User from '@/models/User'
 
 const handler = async (req, res) => {
-  await db()
+	await db()
 
-  if (req.method === 'POST') {
-    if(!req.body.username) return res.status(200).send({ error: true, message: 'שם המשתמש חסר' })
-    if(!req.body.email) return res.status(200).send({ error: true, message: 'כתובת אימייל חסרה' })
-    if(!req.body.password) return res.status(200).send({ error: true, message: 'הסיסמה חסרה' })
+	const { method } = req
+    
+	switch(method) {
+		case 'POST': {
 
-    let { username, email, password, adverts } = req.body
+			if(!req.body.username) return res.status(200).json({ success: false, error: 'שם המשתמש חסר' })
+			if(!req.body.email) return res.status(200).json({ success: false, error: 'כתובת אימייל חסרה' })
+			if(!req.body.password) return res.status(200).json({ success: false, error: 'הסיסמה חסרה' })
 
-    username = username.trim().toLowerCase()
-    email = email.trim().toLowerCase()
+			let { username, email, password, adverts } = req.body
 
-    if(!isEmail(email)) return res.status(200).json({ error: true, message: 'כתובת האימייל שגויה' })
-    if(!isStrongPassword(password, { minLength: 6, maxLength: 24, minLowercase: 1, minUppercase: 0, minNumbers: 1, minSymbols: 0 })) return res.status(200).json({ error: true, message: 'הסיסמה אינה תקינה' })
+			username = username.trim().toLowerCase()
+			email = email.trim().toLowerCase()
 
-    // verify email does not exist already
-    if((await User.find( { $or: [{email}, {username}] } )).length > 0) return res.status(200).json({ error: true, message: 'שם המשתמש או כתובת האימייל כבר קיימים במערכת!' })
+			if(!isEmail(email)) return res.status(200).json({ success: false, error: 'כתובת האימייל שגויה' })
+			if(!isStrongPassword(password, { minLength: 6, maxLength: 24, minLowercase: 1, minUppercase: 0, minNumbers: 1, minSymbols: 0 })) return res.status(200).json({ success: false, error: 'הסיסמה אינה תקינה' })
 
-    const hash = await bcrypt.hash(password, 10)
+			// verify email does not exist already
+			if((await User.find( { $or: [{email}, {username}] } )).length > 0) return res.status(200).json({ success: false, error: 'שם המשתמש או כתובת האימייל כבר קיימים במערכת!' })
 
-    const createdUser = await User.create({
-      userId: v4(),
-      username,
-      email,
-      password: hash,
-      tokens: { confirm: v4() },
-      adverts // check if it works!
-    })
+			const hash = await bcrypt.hash(password, 10)
 
-    const token = jwt.sign({
-      userId: createdUser.userId,
-      email: createdUser.email
-    }, process.env.JWT_SECRET)
+			const createdUser = await User.create({
+				userId: v4(),
+				username,
+				email,
+				password: hash,
+				tokens: { confirm: v4() },
+				adverts // check if it works!
+			})
 
-    return res.status(200).json({ token })
-  } else res.status(401).end()
+			const token = jwt.sign({
+				userId: createdUser.userId,
+				email: createdUser.email
+			}, process.env.JWT_SECRET)
+
+			return res.status(200).json({ success: true, token })
+		}
+		default: return res.status(401).end()
+	}
 }
 
 export default handler

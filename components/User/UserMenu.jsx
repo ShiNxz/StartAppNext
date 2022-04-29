@@ -10,11 +10,9 @@ import Tooltip from '@mui/material/Tooltip'
 import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import { useSnackbar } from 'notistack'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 
 const UserMenu = () => {
-    const router = useRouter()
-
     const { enqueueSnackbar } = useSnackbar()
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
@@ -22,18 +20,18 @@ const UserMenu = () => {
     const handleClose = () => setAnchorEl(null)
 
     const { user, logout } = useContext(userContext)
-
+	
     return user ? (
         <div className='flex'>
             <Tooltip title="הגדרות">
                 <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  aria-controls={open ? 'account-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                    size="small"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
                 >
-                    <Avatar alt={user.username} src={user.page?.avatar} sx={{ width: 32, height: 32 }}>{ user.page?.name.slice(null, -user.page?.name.length+2) || user.username.slice(null, -user.username.length+2) }</Avatar>
+                    <Avatar alt={user.username} src={`/uploads/${user?.avatar}`} sx={{ width: 32, height: 32 }}>{ user.page?.name.slice(null, -user.page?.name.length+2) || user.username.slice(null, -user.username.length+2) }</Avatar>
                 </IconButton>
             </Tooltip>
 
@@ -41,7 +39,6 @@ const UserMenu = () => {
                 <span className="font-semibold text-sm leading-3">ברוך הבא, {user.page?.name || user.username}</span>                
                 <a onClick={handleClick} className="duration-200 underline decoration-white/100 hover:decoration-gray-500 decoration-2 userDropdown text-sm leading-4">הגדרות</a>                
             </div>
-
             <Menu
                 anchorEl={anchorEl}
                 id="account-menu"
@@ -79,13 +76,19 @@ const UserMenu = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
 
-                <MenuItem onClick={() => router.push(`/${user.username}`)}>
+                <MenuItem onClick={() => Router.push(`/${user.username}`)}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>
                     { user.page ? 'צפייה בדף שלך' : 'צור דף אישי' }
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => Router.push(`/dashboard`)}>
+                    <ListItemIcon>
+                        <Settings fontSize="small" />
+                    </ListItemIcon>
+                    פאנל ניהול
+                </MenuItem>
+                <MenuItem onClick={() => Router.push(`/dashboard/settings`)}>
                     <ListItemIcon>
                         <Settings fontSize="small" />
                     </ListItemIcon>

@@ -39,7 +39,7 @@ const Login = ( props ) => {
         }
 
         const { success, data: fetchedData, error } = await Axios('/api/auth/login', data, 'POST')
-		
+
         success && !fetchedData.error ?
 		(
             setAlert({
@@ -58,7 +58,7 @@ const Login = ( props ) => {
             setAlert({
                 show: true,
                 style: "error",
-                message: fetchedData.message || error.response.data.message
+                message: fetchedData.error || error.response.data.error
             })
 
 		setLoading(false)

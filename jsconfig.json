@@ -4,9 +4,12 @@
         "target": "es6",
         "noEmit": true,
         "baseUrl": ".",
+        "jsx": "react",
+        //"checkJs": true,
         "paths": {
             "@/pages/*": ["pages/*"],
             "@/components/*": ["components/*"],
+            "@/UI/*": ["components/UI/*"],
             "@/data/*": ["utils/data/*"],
             "@/utils/*": ["utils/*"],
             "@/func/*": ["utils/functions*"],

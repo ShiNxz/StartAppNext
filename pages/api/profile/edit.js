@@ -1,45 +1,50 @@
-import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-
 import db from '@/utils/db'
 import User from '@/models/User'
 
+const middleware = (req, res) => {
+    return new Promise(async (resolve, reject) => {
+        if (!('token' in req.cookies))
+            return reject(
+                res.status(200).json({ success: false, error: 'error to auth' })
+            )
+
+        let decoded = jwt.verify(req.cookies.token, process.env.JWT_SECRET)
+
+        const user = await User.where("userId").equals(decoded.userId).limit(1)
+        if(user.length < 1) return reject(
+            res.status(200).json({ success: false, error: "לא נמצא משתמש קיים עם הפרטים שנרשמו!" })
+        )
+
+        resolve(user[0])
+    })
+}
+
 const handler = async (req, res) => {
-	await db()
-
-    if (!('token' in req.cookies))
-        return res.status(200).json({ error: 'error to auth' })
-
+    await db()
+    const { method } = req
     
+    switch(method) {
+        case 'POST': {
 
-	if (req.method === "POST") {
-		if(!req.body.options) return res.status(403).send({message: 'הסיסמה חסרה'})
+            const user = await middleware(req, res)
+            if(!user) return;
+            console.log(req.body.options)
+            
+		    if(!req.body.options) return res.status(200).send({ success: false })
 
-        let decoded
-        const token = req.cookies.token
+            let exist = await User.where(`page.${Object.entries(req.body.options)[0][0]}`).equals(Object.entries(req.body.options)[0][1])
+            if(Object.entries(req.body.options)[0][0] === 'customLink' && exist.length > 0) return res.status(200).json({ success: false, message: '✘ קיים משתמש בעל פרטים זהים!' })
+            user.page[Object.entries(req.body.options)[0][0]] = Object.entries(req.body.options)[0][1]
+            user.markModified('page')
+            
+            await user.save()
+            
+            return res.status(200).json({ success: true, message: '✓ ההגדרות נשמרו!' })
 
-        if (token) {
-            try {
-                decoded = jwt.verify(token, process.env.JWT_SECRET)
-		        let { options } = req.body
-                
-
-	  	        const user = await User.where("userId").equals(decoded.userId).limit(1)
-                if(!user) return res.status(200).json({ error: true, message: "לא נמצא משתמש קיים עם הפרטים שנרשמו!" })
-
-                user[0].page[Object.entries(options)[0][0]] = Object.entries(options)[0][1]
-                user[0].markModified('page')
-
-	  	        await user[0].save()
-                
-	  	        return res.status(200).json({ success: true, data: user[0] })
-
-            } catch (e) {
-                console.log(e)
-            }
         }
-
-	} else res.status(401).end()
+        default: return res.status(401).end()
+    }
 }
 
 export default handler
