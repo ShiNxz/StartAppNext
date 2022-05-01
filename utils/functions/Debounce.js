@@ -1,4 +1,4 @@
-const debounce = (func) => {
+const debounce = (func, delay = 500) => {
     let timer
 
     return (...args) => {
@@ -8,7 +8,7 @@ const debounce = (func) => {
         timer = setTimeout(() => {
             timer = null
             func.apply(context, args)
-        }, 500)
+        }, delay)
 
     }
 }

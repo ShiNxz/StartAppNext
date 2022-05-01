@@ -31,7 +31,7 @@ const theme = createTheme({
 const App = (props) => {
 	const { Component, pageProps } = props
 	const { loading, loggedIn, user, mutate, logout } = useUser()
-	console.log(user)
+
 	return (
 		<>
 			<Head>
@@ -51,9 +51,9 @@ const App = (props) => {
 							TransitionComponent={Collapse}
 						>
 							<userContext.Provider value={{ loading, loggedIn, user, mutate, logout }}>
-								<Layout>
-									<Component {...pageProps} />
-								</Layout>
+									<Layout>
+										<Component {...pageProps} />
+									</Layout>
 							</userContext.Provider>
 						</SnackbarProvider>
 					</AppContextProvider>

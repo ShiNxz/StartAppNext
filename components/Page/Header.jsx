@@ -11,7 +11,7 @@ const SocialLink = ({ title, text }) => (
 
 const Header = ({ name, avatar, title }) => {
 	return (
-		<div className='container mx-auto z-20 -mt-16 bg-white h-44 rounded-3xl shadow-low flex p-6 px-12'>
+		<div className='container mx-auto z-20 -mt-20 bg-white h-44 rounded-3xl shadow-low flex p-6 px-12'>
 			<div className='-mt-16'>
 				{
 					<Avatar

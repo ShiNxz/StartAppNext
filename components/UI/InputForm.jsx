@@ -2,7 +2,22 @@ import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import CircularProgress from '@mui/material/CircularProgress'
 
-const InputForm = ({ id, title, type, value, className, error, variant, loading, helper, required, InputProps }) => {
+const InputForm = ({
+	id,
+	title,
+	type,
+	value,
+	className,
+	error,
+	variant,
+	loading,
+	helper,
+	required,
+	InputProps,
+	success,
+	multiline,
+	rows,
+}) => {
 	return (
 		<FormControl className={`!mx-4 ${className || ''}`}>
 			<TextField
@@ -17,6 +32,9 @@ const InputForm = ({ id, title, type, value, className, error, variant, loading,
 				required={required || false}
 				InputProps={InputProps}
 				autoComplete='off'
+				color={success ? 'success' : ''}
+				rows={rows}
+				multiline={multiline}
 			/>
 			{loading && (
 				<CircularProgress

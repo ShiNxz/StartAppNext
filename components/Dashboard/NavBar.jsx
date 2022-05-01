@@ -19,7 +19,6 @@ const NavBar = () => {
 				<UserMenu />
 				<UserAlerts />
 				<DarkModeIcon className='' />
-
 			</div>
 		</div>
 	)

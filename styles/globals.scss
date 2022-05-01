@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
 
 @tailwind base;
 @tailwind components;
@@ -114,4 +115,14 @@ label {
     width: 3.125rem;
     z-index: 1;
   }
+}
+
+.image-gallery-slide-wrapper {
+	max-height: 25rem;
+}
+
+@layer utilities {
+	.active {
+		@apply bg-blue-500 text-white
+	}
 }

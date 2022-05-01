@@ -6,13 +6,14 @@ import Banner from '@/components/Page/Banner'
 import Header from '@/components/Page/Header'
 import SideBar from '@/components/Page/SideBar'
 import Block from '@/components/Page/Block'
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import SpeedDial from '@/components/Page/SpeedDial'
 import useUser from '@/data/useUser'
 import Error from '@/components/UI/Error'
 import CreateProfile from '@/components/Page/CreateProfile'
 import Footer from '@/components/UI/Footer'
 import Navbar from '@/components/UI/Navbar'
+import BlockTypes from '@/utils/page/Blocks'
+import { Link as ScrollLink } from 'react-scroll'
 
 export function getServerSideProps(context) {
 	return {
@@ -22,29 +23,36 @@ export function getServerSideProps(context) {
 	}
 }
 
-const Link = ({ title, icon }) => (
-	<a
-		href={`#${title}`}
+const Link = ({ title, icon, type, index }) => (
+	<ScrollLink
+		activeClass='active'
+		to={`${type}-${index}`}
+		spy={true}
+		smooth={true}
+		offset={-70}
 		className='rounded-3xl p-4 mb-4 bg-slate-100 flex flex-col justify-center items-center text-gray-600 hover:bg-slate-200 hover:text-gray-800'
 	>
-		<PersonOutlineIcon className='mb-0.5 !text-5xl' />
-		<span className='font-medium text-md'>{title}</span>
-	</a>
+		{icon}
+		<span className='font-medium text-md text-center'>{title}</span>
+	</ScrollLink>
 )
-
-const Blocks = ({ children }) => <div className='mr-8 mt-8 w-full'> {children} </div>
 
 const Links = ({ blocks }) => (
 	<div className='w-[17%] sticky top-0 h-fit -mt-8'>
 		<div className='rounded-3xl shadow-low bg-white p-7 mt-16'>
 			{blocks?.length > 0 ? (
-				blocks.map((b) => (
-					<Link
-						title={b.title}
-						key={b.title}
-						icon=''
-					/>
-				))
+				blocks.map((b, index) => {
+					const Type = BlockTypes.filter((type) => type.id === b.type)[0]
+					return (
+						<Link
+							index={index}
+							title={Type.name}
+							key={Type.name}
+							type={Type.id}
+							icon={Type.icon}
+						/>
+					)
+				})
 			) : (
 				<>none</>
 			)}
@@ -103,21 +111,16 @@ const Profile = ({ params }) => {
 						/>
 						<div className='container mx-auto flex flex-row content-between'>
 							<Links blocks={data.blocks} />
-							<Blocks>
-								{data.blocks?.length > 0 ? (
-									data.blocks.map((b) => (
+							<div className='mr-8 mt-8 w-full'>
+								{data.blocks?.length > 0 &&
+									data.blocks.map((b, index) => (
 										<Block
-											key={b.title}
+											index={index}
+											key={b.type}
 											info={b}
 										/>
-									))
-								) : (
-									<Block
-										key='none'
-										info={'sdfsd'}
-									/>
-								)}
-							</Blocks>
+									))}
+							</div>
 						</div>
 					</ProfileContext.Provider>
 				)}
