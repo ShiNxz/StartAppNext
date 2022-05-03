@@ -4,8 +4,9 @@ import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 
 import { useState } from 'react'
-import SettingsTabs from './SettingsTabs'
-import Button from '../UI/Button'
+import SettingsTabs from '../Settings/Tabs'
+import Button from '../../UI/Button'
+import useUser from '@/data/useUser'
 
 export const TabPanel = ({ children, index, value }) => {
 	return (
@@ -22,6 +23,8 @@ export const TabPanel = ({ children, index, value }) => {
 
 const SideBar = ({ menu, setMenu }) => {
 	const [value, setValue] = useState(0)
+	const { user } = useUser()
+	user.package = 1
 
 	const handleChange = (event, newValue) => setValue(newValue)
 
@@ -43,7 +46,7 @@ const SideBar = ({ menu, setMenu }) => {
 					>
 						{SettingsTabs.map((tab, index) => (
 							<Tab
-								disabled={tab.bought}
+								disabled={!!tab.package > user.package }
 								key={tab.name}
 								label={tab.name}
 								id={`panel-${index}`}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Divider from '@mui/material/Divider'
-import Items from './Items'
+import Items from './Pages'
 import { useRouter } from 'next/router'
 
 const Item = ({ active, onClick, name, icon }) => {

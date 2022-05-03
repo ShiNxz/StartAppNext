@@ -5,39 +5,45 @@ import debounce from '@/utils/functions/Debounce'
 import { ProfileContext } from '@/pages/[user]'
 import LinearProgress from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
+import useUser from '@/data/useUser'
 
 const SettingsInput = ({ name, initValue, helper, title, validate, className, sx, InputProps, rows, multiline }) => {
 	const [value, setValue] = useState(initValue)
 	const [saved, setSaved] = useState()
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(false)
+	const { mutate: userMutate } = useUser()
 	const { mutate } = useContext(ProfileContext)
 
 	const handleChange = useCallback(
 		debounce(async (options) => {
+			console.log(options)
 			setLoading(true)
 			const { success, data } = await Axios('/api/profile/edit', { options }, 'POST')
 			setSaved({ success, data })
 			!success && setError(saved?.data?.message)
 			success && mutate && (await mutate())
+			success && userMutate && (await userMutate())
 			setLoading(false)
 		}),
 		[]
 	)
 
 	useEffect(() => {
-		if ((value && value === initValue) || typeof value === 'undefined') return
+		if ((value && value == initValue) || typeof value === 'undefined') return
 
 		const validation = validate(value)
+		console.log('before handleChange', validation)
 
-		return () => {
+		
 			if (validation === true) {
+				console.log('handleChange')
 				handleChange({ [name]: value })
 				setError(false)
 			} else {
 				setError(validation)
 			}
-		}
+		
 	}, [value])
 
 	return (
@@ -49,9 +55,9 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 						<LinearProgress />
 					</Box>
 				) : saved ? (
-					<span className={`${saved?.success ? 'text-green-700' : 'text-red-700'} font-medium`}>
-						{saved?.data?.message}
-					</span>
+					// <span className={`${saved?.success ? 'text-green-700' : 'text-red-700'} font-medium`}>
+						saved?.data?.message
+					// </span>
 				) : (
 					helper
 				)

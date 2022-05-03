@@ -1,15 +1,16 @@
 import Button from '@/components/UI/Button'
 import BlockTypes from '@/utils/page/Blocks'
-import SettingsInput from '../Settings/Input'
+import SettingsInput from '../Inputs/Input'
 
-export const CustomTextBoxSettings = ({ variables, close }) => {
+export const CustomTextBoxSettings = ({ blockKey, variables, close }) => {
 	const type = BlockTypes.filter((b) => b.id === 'customTextBox')[0]
+	console.log(blockKey)
 
 	return (
 		<>
 			{type.variables.map((variable, index) => (
 				<SettingsInput
-					name={variable.name}
+					name={`blocks.${blockKey}.${variable.identifier}`}
 					title={type.name}
 					initValue={variables[type.variables[index].identifier]}
 					helper={variable.description}
@@ -17,7 +18,7 @@ export const CustomTextBoxSettings = ({ variables, close }) => {
 					validate={variable.validation}
 					className='!mb-4 !w-full !mx-0'
 					multiline={true}
-					key={variable.name}
+					key={`${blockKey}.${variable.identifier}`}
 					rows={variable.rows}
 				/>
 			))}

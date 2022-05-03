@@ -60,34 +60,39 @@ const handler = async (req, res) => {
 					await user.save()
 					return res
 						.status(200)
-						.json({ success: true, message: user.page.blocks.filter((block) => block.type !== value) })
+						.json({ success: true, message: user.page.blocks.filter((block) => block.key !== value) })
 					break
 				}
 
 				case 'addBlock': {
-					const type = BlockTypes.filter((block) => (block.id === value))[0]
-					//console.log(type)
+					const type = BlockTypes.filter((block) => block.id === value)[0]
+
 					let variables = {}
-					type.variables.forEach((v) => variables = ({...variables, [v.identifier]: v.defaultValue}))
+					type.variables.forEach((v) => (variables = { ...variables, [v.identifier]: v.defaultValue }))
 
 					user.page.blocks.push({
+						key: `${type.id}-${user.page.blocks.length + 1}`,
 						type: type.id,
 						variables
 					})
+
 					user.markModified('page')
 					await user.save()
 					return res.status(200).json({ success: true, message: user.page.blocks })
 					break
 				}
 
-				case variable.startsWith('blocks') ? variable : '': {
+				case variable.startsWith('blocks.') ? variable : '': {
 					const splited = variable.split('.')
-					const filteredType = BlockTypes.filter((b) => b.id === splited[1])[0]
+					const splitedType = splited[1].split('-')
+					const filteredType = BlockTypes.filter((b) => b.id === splitedType[0])[0]
 					const filteredVariable = filteredType.variables.filter((v) => v.identifier === splited[2])[0]
 					//console.log(filteredVariable)
 					// ! make checks for min and max lengths + validation again + for every other input
-					const index = user.page.blocks.findIndex((obj) => obj.type === splited[1])
+					const index = user.page.blocks.findIndex((obj) => obj.key === splited[1])
+					console.log(user.page.blocks[index].variables[splited[2]])
 					user.page.blocks[index].variables[splited[2]] = value
+					console.log(index)
 					break
 				}
 			}
@@ -96,7 +101,7 @@ const handler = async (req, res) => {
 
 			await user.save()
 
-			return res.status(200).json({ success: true, message: '✓ ההגדרות נשמרו!' })
+			return res.status(200).json({ success: true, message: 'ההגדרות נשמרו!' })
 		}
 		default:
 			return res.status(401).end()

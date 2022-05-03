@@ -1,15 +1,15 @@
 import Button from '@/components/UI/Button'
 import BlockTypes from '@/utils/page/Blocks'
-import SettingsInput from '../Settings/Input'
+import SettingsInput from '../Inputs/Input'
 
-export const AboutMeSettings = ({ variables, close }) => {
+export const AboutMeSettings = ({ blockKey, variables, close }) => {
 	const type = BlockTypes.filter((b) => b.id === 'aboutMe')[0]
 
 	return (
 		<>
 			{type.variables.map((variable, index) => (
 				<SettingsInput
-					name={variable.name}
+					name={`blocks.${blockKey}.${variable.identifier}`}
 					title={type.name}
 					initValue={variables[type.variables[index].identifier]}
 					helper={variable.description}
@@ -18,7 +18,7 @@ export const AboutMeSettings = ({ variables, close }) => {
 					className='!mb-4 !w-full !mx-0'
 					InputProps={{ minLength: 1, maxLength: 10 }}
 					multiline={true}
-					key={variable.name}
+					key={`${blockKey}.${variable.identifier}`}
 					rows={variable.rows}
 				/>
 			))}

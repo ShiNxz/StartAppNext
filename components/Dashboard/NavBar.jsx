@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Logo from '@/public/assets/logo.png'
 import UserMenu from '../User/UserMenu'
-import UserAlerts from '../User/UserAlerts'
+import UserAlerts from '../User/UserNotifications'
 import Router from 'next/router'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 

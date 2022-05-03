@@ -4,10 +4,15 @@ const ColoredBox = ({ style }) => {
     switch(style) {
         case 1:
             style = `from-blue-400 to-purple-400 shadow-pink-400/30`
+		break
+		
         case 2:
             style = `from-blue-400 to-purple-500 shadow-purple-500/30`
+		break
+		
         default:
             style = `from-orange-400 to-pink-400 shadow-pink-400/30`
+		break
     }
 
     //!console.log(style)

@@ -2,14 +2,14 @@ import { useContext, useEffect, useState, createContext } from 'react'
 import fetcher from '@/utils/fetcher'
 import useSWR from 'swr'
 import AppContext from '@/data/AppContext'
-import Banner from '@/components/Page/Banner'
-import Header from '@/components/Page/Header'
-import SideBar from '@/components/Page/SideBar'
-import Block from '@/components/Page/Block'
-import SpeedDial from '@/components/Page/SpeedDial'
+import Banner from '@/components/Page/UI/Banner'
+import Header from '@/components/Page/UI/Header'
+import SideBar from '@/components/Page/UI/SettingsSideBar'
+import Block from '@/components/Page/UI/Block'
+import SpeedDial from '@/components/Page/UI/SpeedDial'
 import useUser from '@/data/useUser'
 import Error from '@/components/UI/Error'
-import CreateProfile from '@/components/Page/CreateProfile'
+import CreateProfile from '@/components/Page/CreatePage'
 import Footer from '@/components/UI/Footer'
 import Navbar from '@/components/UI/Navbar'
 import BlockTypes from '@/utils/page/Blocks'
@@ -23,10 +23,10 @@ export function getServerSideProps(context) {
 	}
 }
 
-const Link = ({ title, icon, type, index }) => (
+const Link = ({ title, icon, bKey }) => (
 	<ScrollLink
 		activeClass='active'
-		to={`${type}-${index}`}
+		to={bKey}
 		spy={true}
 		smooth={true}
 		offset={-70}
@@ -41,14 +41,13 @@ const Links = ({ blocks }) => (
 	<div className='w-[17%] sticky top-0 h-fit -mt-8'>
 		<div className='rounded-3xl shadow-low bg-white p-7 mt-16'>
 			{blocks?.length > 0 ? (
-				blocks.map((b, index) => {
+				blocks.map((b) => {
 					const Type = BlockTypes.filter((type) => type.id === b.type)[0]
 					return (
 						<Link
-							index={index}
+							bKey={b.key}
 							title={Type.name}
-							key={Type.name}
-							type={Type.id}
+							key={b.key}
 							icon={Type.icon}
 						/>
 					)
@@ -113,10 +112,9 @@ const Profile = ({ params }) => {
 							<Links blocks={data.blocks} />
 							<div className='mr-8 mt-8 w-full'>
 								{data.blocks?.length > 0 &&
-									data.blocks.map((b, index) => (
+									data.blocks.map((b) => (
 										<Block
-											index={index}
-											key={b.type}
+											key={b.key}
 											info={b}
 										/>
 									))}

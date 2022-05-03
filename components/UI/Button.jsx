@@ -18,6 +18,12 @@ const Button = ({ style, children, onClick, type, className, disabled, loading, 
 			} border hover:bg-sky-600 focus:ring-sky-600 focus:ring-offset-sky-200 ${loading ? 'bg-sky-800' : ''}`
 			break
 
+		case 'red':
+			style = `bg-red-500 border-red-500 ${
+				outline ? 'text-red-500' : ''
+			} border hover:bg-red-600 focus:ring-red-600 focus:ring-offset-red-200 ${loading ? 'bg-red-800' : ''}`
+			break
+
 		case 'blue':
 			style = `bg-blue-500 hover:bg-blue-600 border-blue-500 ${
 				outline ? 'text-blue-500' : ''

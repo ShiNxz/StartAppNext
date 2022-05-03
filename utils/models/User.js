@@ -42,14 +42,13 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    personal: {
-        name: {
-            type: String, 
-        },
-    },
     page: {
-        type: Object,
-        required: false
+        //required: false,
+		name: String,
+		title: String,
+		banner: String,
+		customLink: String,
+		blocks: [Object] 
     },
     created_time: {
         type: Number,

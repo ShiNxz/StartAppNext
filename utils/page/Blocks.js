@@ -1,6 +1,6 @@
-import AboutMe, { AboutMeSettings } from "@/components/Page/Blocks/AboutMe"
-import Carousel from "@/components/Page/Blocks/Carousel"
-import CustomTextBox, { CustomTextBoxSettings } from "@/components/Page/Blocks/CustomTextBox"
+import AboutMe, { AboutMeSettings } from "@/components/Page/BlockTypes/AboutMe"
+import Carousel from "@/components/Page/BlockTypes/Carousel"
+import CustomTextBox, { CustomTextBoxSettings } from "@/components/Page/BlockTypes/CustomTextBox"
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 
 export default [
@@ -9,6 +9,7 @@ export default [
         name: 'אודות',
 		description: 'פירוט קצר על עצמך',
 		icon: <PersonOutlineIcon className='mb-0.5 !text-5xl' />,
+		// TODO tags - show as badges after the description
         variables: [
             {
                 name: 'blocks.aboutMe.text', // ! this will be connected to the component and db (as a json of variables = [ { type: 'aboutMe', variables: [{}] }])
@@ -31,7 +32,7 @@ export default [
     },
     {
         id: 'carousel',
-        name: 'גלרייה (קרוסלה)',
+        name: 'גלרייה',
 		description: 'גלריית תמונות בסגנון קרוסלה',
 		icon: <PersonOutlineIcon className='mb-0.5 !text-5xl' />,
         variables: [

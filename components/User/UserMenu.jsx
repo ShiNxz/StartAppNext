@@ -31,7 +31,7 @@ const UserMenu = () => {
                     aria-haspopup="true"
                     aria-expanded={open ? 'true' : undefined}
                 >
-                    <Avatar alt={user.username} src={`/uploads/${user?.avatar}`} sx={{ width: 32, height: 32 }}>{ user.page?.name.slice(null, -user.page?.name.length+2) || user.username.slice(null, -user.username.length+2) }</Avatar>
+                    <Avatar alt={user?.username} src={`/uploads/${user?.avatar}`} sx={{ width: 32, height: 32 }}>{ user.page?.name?.slice(null, -user.page?.name.length+2) || user.username.slice(null, -user.username.length+2) }</Avatar>
                 </IconButton>
             </Tooltip>
 

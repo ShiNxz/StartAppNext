@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { TabPanel } from '@/components/Page/SideBar'
+import { TabPanel } from '@/components/Page/UI/SettingsSideBar'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import SettingsTabs from '@/components/Page/SettingsTabs'
+import SettingsTabs from '@/components/Page/Settings/Tabs'
 
 const SettingsBar = () => {
 	const [value, setValue] = useState(0)
