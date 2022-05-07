@@ -40,6 +40,7 @@ const InputForm = ({
 				<CircularProgress
 					size={24}
 					className='text-blue-700 absolute top-1/2 -mt-5 -lt-3 w-4 left-4'
+					color={!!error ? 'error' : success ? 'success' : 'info'}
 				/>
 			)}
 		</FormControl>

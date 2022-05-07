@@ -8,8 +8,8 @@ const Items = [
 		icon: <AddPhotoAlternateIcon sx={{ fontSize: 50 }} />,
 	},
 	{
-		name: 'טסט',
-		link: '/dashboard/test',
+		name: 'פתקים',
+		link: '/dashboard/boards',
 		icon: <AddPhotoAlternateIcon sx={{ fontSize: 50 }} />,
 	},
 	{

@@ -15,6 +15,7 @@ import rtlPlugin from 'stylis-plugin-rtl'
 import { SnackbarProvider } from 'notistack'
 
 import Collapse from '@mui/material/Collapse'
+import { useMemo } from 'react'
 
 const cacheRtl = createCache({
 	key: 'muirtl',
@@ -31,6 +32,7 @@ const theme = createTheme({
 const App = (props) => {
 	const { Component, pageProps } = props
 	const { loading, loggedIn, user, mutate, logout } = useUser()
+	const userValues = useMemo(() => ({ loading, loggedIn, user, mutate, logout }), [loading, loggedIn, user])
 
 	return (
 		<>
@@ -50,10 +52,10 @@ const App = (props) => {
 							anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
 							TransitionComponent={Collapse}
 						>
-							<userContext.Provider value={{ loading, loggedIn, user, mutate, logout }}>
-									<Layout>
-										<Component {...pageProps} />
-									</Layout>
+							<userContext.Provider value={ userValues }>
+								<Layout>
+									<Component {...pageProps} />
+								</Layout>
 							</userContext.Provider>
 						</SnackbarProvider>
 					</AppContextProvider>

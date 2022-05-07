@@ -42,6 +42,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+	boards: [Object],
     page: {
         //required: false,
 		name: String,

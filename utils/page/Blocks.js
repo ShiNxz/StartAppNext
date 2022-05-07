@@ -1,5 +1,5 @@
 import AboutMe, { AboutMeSettings } from "@/components/Page/BlockTypes/AboutMe"
-import Carousel from "@/components/Page/BlockTypes/Carousel"
+import Carousel, { CarouselBlockSettings } from "@/components/Page/BlockTypes/Carousel"
 import CustomTextBox, { CustomTextBoxSettings } from "@/components/Page/BlockTypes/CustomTextBox"
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 
@@ -37,23 +37,13 @@ export default [
 		icon: <PersonOutlineIcon className='mb-0.5 !text-5xl' />,
         variables: [
             {
-                name: 'blocks.carousel.text', // ! this will be connected to the component and db (as a json of variables = [ { type: 'aboutMe', variables: [{}] }])
-				identifier: 'text',
-				title: 'פירוט על עצמך.....',
-				maxLength: 30,
-                minLength: 5,
-				rows: 8,
-				placeholder: 'יש לערוך...',
-                description: 'תיאור.....',
-				validation: (input) => {
-					if (input === '') return 'יש להקליד שם'
-					if (input?.length >= 10) return 'ניתן לבחור כתובת בעלת מקסימום 10 תוים!'
-					return true
-				}
+                name: 'blocks.carousel.pictures', // ! this will be connected to the component and db (as a json of variables = [ { type: 'aboutMe', variables: [{}] }])
+				identifier: 'pictures',
+				title: 'תמונות'
             },
         ],
         component: Carousel,
-		settingsComponent: AboutMeSettings
+		settingsComponent: CarouselBlockSettings
     },
     {
         id: 'customTextBox',

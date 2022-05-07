@@ -52,12 +52,14 @@ export default {
 			description: 'התמונה אשר תוצג בפרופיל',
 			inputName: 'avatar',
 			role: 1,
+			formats: ['png', 'jpeg']
 		},
 		{
 			title: 'באנר',
 			description: 'התמונה אשר תוצג ברקע',
 			inputName: 'banner',
-			role: 2
+			role: 2,
+			formats: ['png', 'gif', 'jpeg']
 		},
 	]
 }

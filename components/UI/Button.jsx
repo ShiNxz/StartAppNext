@@ -3,7 +3,7 @@ const Button = ({ style, children, onClick, type, className, disabled, loading, 
 		default:
 			style = `bg-purple-500 border-purple-500 ${
 				outline ? 'text-purple-500' : ''
-			} border-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200`
+			} border-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 ${disabled ? 'bg-purple-800' : ''}`
 			break
 
 		case 'purple':

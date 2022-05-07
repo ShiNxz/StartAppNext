@@ -25,6 +25,7 @@ const handler = async (req, res) => {
             email: user.email,
             avatar: user.avatar,
             page: user.page,
+            boards: user.boards,
             // ...
           }
         

@@ -12,7 +12,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
 import Alert from '@mui/material/Alert'
 
-const AddNewBlock = ({ mutate, setState, setMemory }) => {
+const AddNewBlock = ({ mutate, setState }) => {
 	const [addBlock, setAddBlock] = useState({ label: BlockTypes.name, id: BlockTypes[0].id })
 	const [inputValue, setInputValue] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -42,8 +42,6 @@ const AddNewBlock = ({ mutate, setState, setMemory }) => {
 		}, 500)
 
 		success && mutate && (await mutate())
-		setMemory(data.message)
-		setState(data.message)
 	}
 
 	return (

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useMemo } from 'react'
 import { ProfileContext } from '@/pages/[user]'
 import useUser from '@/data/useUser'
 
@@ -6,19 +6,23 @@ import AddNewBlock from './Blocks/AddBlock'
 import SortBlocks from './Blocks/SortBlocks'
 
 const BlocksSettings = () => {
-	const { user } = useUser()
-	const { mutate } = useContext(ProfileContext)
+	const { data, mutate } = useContext(ProfileContext)
 	const [state, setState] = useState([])
 	const [memory, setMemory] = useState([])
 
+	const memoState = useMemo(
+		() => data.blocks.map(({ key, type, variables }) => ({ key, type, variables })),
+		[data.blocks]
+	)
+
 	useEffect(() => {
-		user.page && setState(user.page.blocks)
-	}, [user.page])
+		memoState && setState(memoState)
+		console.log(memoState)
+	}, [memoState])
 
 	return (
 		<>
 			<SortBlocks
-				user={user}
 				state={state}
 				setState={setState}
 				memory={memory}

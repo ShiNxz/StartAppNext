@@ -20,11 +20,18 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 			console.log(options)
 			setLoading(true)
 			const { success, data } = await Axios('/api/profile/edit', { options }, 'POST')
-			setSaved({ success, data })
-			!success && setError(saved?.data?.message)
-			success && mutate && (await mutate())
-			success && userMutate && (await userMutate())
-			setLoading(false)
+
+			setTimeout(async () => {
+				!success && setError(saved?.data?.message)
+				setSaved({ success, data })
+				success && mutate && (await mutate())
+				success && userMutate && (await userMutate())
+
+				setTimeout(() => {
+					setLoading(false)
+				}, 300)
+
+			}, 1000)
 		}),
 		[]
 	)
@@ -35,15 +42,13 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 		const validation = validate(value)
 		console.log('before handleChange', validation)
 
-		
-			if (validation === true) {
-				console.log('handleChange')
-				handleChange({ [name]: value })
-				setError(false)
-			} else {
-				setError(validation)
-			}
-		
+		if (validation === true) {
+			console.log('handleChange')
+			handleChange({ [name]: value })
+			setError(false)
+		} else {
+			setError(validation)
+		}
 	}, [value])
 
 	return (
@@ -52,13 +57,13 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 			helper={
 				loading ? (
 					<Box sx={{ width: '100%', margin: 'auto', mb: '10px' }}>
-						<LinearProgress />
+						<LinearProgress color={!!error ? 'error' : saved?.success ? 'success' : 'info'} />
 					</Box>
 				) : saved ? (
 					// <span className={`${saved?.success ? 'text-green-700' : 'text-red-700'} font-medium`}>
-						saved?.data?.message
-					// </span>
+					saved?.data?.message
 				) : (
+					// </span>
 					helper
 				)
 			}

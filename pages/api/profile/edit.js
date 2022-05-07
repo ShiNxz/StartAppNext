@@ -38,7 +38,7 @@ const handler = async (req, res) => {
 				}
 
 				case 'title': {
-					user.page.name = value
+					user.page.title = value
 					break
 				}
 
@@ -46,6 +46,8 @@ const handler = async (req, res) => {
 					let exist = await User.where(`page.${variable}`).equals(value)
 					if (exist.length > 0)
 						return res.status(200).json({ success: false, message: '✘ קיים משתמש בעל פרטים זהים!' })
+
+					user.page.customLink = value
 					break
 				}
 
@@ -55,7 +57,7 @@ const handler = async (req, res) => {
 				}
 
 				case 'deleteBlock': {
-					user.page.blocks = user.page.blocks.filter((block) => block.type !== value)
+					user.page.blocks = user.page.blocks.filter((block) => block.key !== value)
 					user.markModified('page')
 					await user.save()
 					return res
@@ -71,7 +73,7 @@ const handler = async (req, res) => {
 					type.variables.forEach((v) => (variables = { ...variables, [v.identifier]: v.defaultValue }))
 
 					user.page.blocks.push({
-						key: `${type.id}-${user.page.blocks.length + 1}`,
+						key: `${type.id}-${Math.floor(1000 + Math.random() * 9000)}`,
 						type: type.id,
 						variables
 					})

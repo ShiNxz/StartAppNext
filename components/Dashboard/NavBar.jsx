@@ -12,7 +12,7 @@ const NavBar = () => {
 				src={Logo}
 				className='duration-300 cursor-pointer'
 				height={22}
-				width={37}
+				width={35}
 				onClick={() => Router.push(`/`)}
 			/>
 			<div className='flex items-center'>

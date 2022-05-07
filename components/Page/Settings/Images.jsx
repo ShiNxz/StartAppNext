@@ -6,13 +6,16 @@ const ImagesSettings = () => {
 	return (
 		<>
 			{SettingsInputs.images.map((i) => (
-				<>
+				<div key={i.title}>
 					<Title
-						title={i.title.name}
-						des={i.title.description}
+						title={i.title}
+						des={i.description}
 					/>
-					<ImageInput name={i.inputName} />
-				</>
+					<ImageInput
+						name={i.inputName}
+						formats={i.formats}
+					/>
+				</div>
 			))}
 		</>
 	)

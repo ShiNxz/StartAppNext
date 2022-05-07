@@ -1,5 +1,7 @@
 import ImageGallery from 'react-image-gallery'
 import BlockTypes from '@/utils/page/Blocks'
+import ImageInput from './../Inputs/ImageInput';
+import Button from '@/components/UI/Button'
 
 const CarouselBlock = () => {
 	const images = [
@@ -28,6 +30,24 @@ const CarouselBlock = () => {
 				showIndex={true}
 				slideInterval={6000}
 			/>
+		</>
+	)
+}
+
+export const CarouselBlockSettings = ({ blockKey, variables, close }) => {
+	const type = BlockTypes.filter((b) => b.id === 'carousel')[0]
+
+	return (
+		<>
+			<ImageInput name='' formats={['png', 'j[g']} multiple />
+
+			<Button
+				style='cyan'
+				className='w-full'
+				onClick={close}
+			>
+				סגירה
+			</Button>
 		</>
 	)
 }

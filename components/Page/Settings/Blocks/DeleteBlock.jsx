@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import Button from '@/components/UI/Button'
 
-const DeleteBlock = ({ setLoading, setAlert, mutate, setMemory, setState, confirm, setConfirm }) => {
+const DeleteBlock = ({ setLoading, setAlert, mutate, setState, confirm, setConfirm }) => {
 	const Handler = async (blockId) => {
 		setLoading(true)
 
@@ -30,8 +30,6 @@ const DeleteBlock = ({ setLoading, setAlert, mutate, setMemory, setState, confir
 		}, 500)
 
 		success && mutate && (await mutate())
-		setMemory(data.message)
-		setState(data.message)
 		setConfirm(false)
 	}
 

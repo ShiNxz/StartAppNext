@@ -60,10 +60,10 @@ const handler = async (req, res) => {
             })
 
             form.onPart = (part) => {
-                if(part.mime === 'image/png' || part.mime === 'image/jpeg') {
+                if(part.mime === 'image/png' || part.mime === 'image/jpeg' || part.mime === 'image/gif') {
                     form.handlePart(part)
                 } else
-                    return res.status(200).json({ success: false, error: 'bad file' })
+                    return res.status(200).json({ success: false, error: 'ניתן לבחור אך ורק תמונות!' })
             }
 
             form.on('error', (err) => {

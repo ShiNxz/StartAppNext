@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, createContext } from 'react'
+import { useContext, useEffect, useState, createContext, useMemo } from 'react'
 import fetcher from '@/utils/fetcher'
 import useSWR from 'swr'
 import AppContext from '@/data/AppContext'
@@ -63,14 +63,17 @@ export const ProfileContext = createContext({ data: null, mutate: null })
 
 const Profile = ({ params }) => {
 	const { loggedIn, user } = useUser()
-	const { data, mutate } = useSWR(`/api/profile/${params}`, fetcher)
+	const { data: pageData, mutate } = useSWR(`/api/profile/${params}`, fetcher)
 	const [menu, setMenu] = useState(true)
 
 	const { setLoading } = useContext(AppContext)
 
+	const data = useMemo(() => (pageData), [pageData])
+	
 	useEffect(() => {
-		data && setLoading(false)
-		if (data?.name) document.title = `StartApp | ${data.name}`
+		if(!data) return
+		setLoading(false)
+		document.title = `StartApp | ${data.name}`
 	}, [data])
 
 	return (
