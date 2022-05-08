@@ -8,11 +8,13 @@ import Alert from '@mui/material/Alert'
 import Collapse from '@mui/material/Collapse'
 import LinearProgress from '@mui/material/LinearProgress'
 import Box from '@mui/material/Box'
+import useUser from '@/data/useUser'
 
-const ImageInput = ({ name, formats, multiple }) => {
-	const { mutate } = useContext(ProfileContext)
+const ImageInput = ({ name, formats, multiple, blockId, setImages }) => {
+	const { mutate } = useUser()
+	const { mutate: reset } = useContext(ProfileContext)
 
-	const [selectedFile, setSelectedFile] = useState(null)
+	const [selectedFiles, setSelectedFiles] = useState(null)
 
 	const [loading, setLoading] = useState(false)
 	const [alert, setAlert] = useState({
@@ -29,17 +31,19 @@ const ImageInput = ({ name, formats, multiple }) => {
 		})
 
 		const formData = new FormData()
-		formData.append(name, selectedFile)
 
-		console.log(selectedFile)
-		//const { success } = await Axios(`/api/profile/${name}`, formData, 'POST', 'multipart/form-data')
+		for (let i = 0; i < selectedFiles.length; i++) {
+			formData.append(blockId ? `${blockId}:${i}` : `${name}:${i}`, selectedFiles[i])
+		}
+
+		const { success, data } = await Axios(`/api/profile/${name}`, formData, 'POST', 'multipart/form-data')
 
 		setTimeout(async () => {
 			if (success)
 				setAlert({
 					show: true,
 					style: 'success',
-					message: 'התמונה נוספה בהצלחה!',
+					message: selectedFiles.length > 1 ? 'התמונות נוספו בהצלחה!' : 'התמונה נוספה בהצלחה!',
 				})
 			else
 				setAlert({
@@ -48,7 +52,9 @@ const ImageInput = ({ name, formats, multiple }) => {
 					message: 'חלה שגיאה...',
 				})
 
+			if (setImages && success) setImages(data.message)
 			mutate && (await mutate())
+			reset && (await reset())
 			setLoading(false)
 		}, 2000)
 	}
@@ -83,7 +89,7 @@ const ImageInput = ({ name, formats, multiple }) => {
                         	focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
 						type='file'
 						id='formFile'
-						onChange={() => setSelectedFile(event.target.files[0])}
+						onChange={() => setSelectedFiles(event.target.files)}
 						accept={formats.map((f) => `image/${f}`).join(', ')}
 						multiple={multiple}
 					/>
@@ -96,12 +102,12 @@ const ImageInput = ({ name, formats, multiple }) => {
 				</Collapse>
 
 				<Button
-					disabled={!selectedFile}
+					disabled={!selectedFiles}
 					loading={loading}
 					type='submit'
 					className='w-96 m-auto mb-10'
 				>
-					שמירה
+					{selectedFiles ? 'שמירה' : 'יש לבחור קובץ'}
 				</Button>
 			</form>
 		</>

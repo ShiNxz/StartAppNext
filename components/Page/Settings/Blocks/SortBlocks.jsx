@@ -1,5 +1,5 @@
 import Progress from './Progress'
-import { forwardRef, useCallback, useEffect, useState, useRef } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import isEqual from 'lodash.isequal'
 import debounce from '@/utils/functions/Debounce'
 import Axios from '@/utils/functions/Axios'
@@ -11,7 +11,6 @@ import BlockTypes from '@/utils/page/Blocks'
 import EditBlock from './EditBlock'
 import DeleteBlock from './DeleteBlock'
 import Collapse from '@mui/material/Collapse'
-import { TransitionGroup } from 'react-transition-group'
 
 const SortBlocks = ({ state, setState, mutate }) => {
 	const [loading, setLoading] = useState(false)
@@ -22,7 +21,6 @@ const SortBlocks = ({ state, setState, mutate }) => {
 		message: '',
 	})
 	const [sort, setSort] = useState([])
-	const nodeRef = useRef(null)
 
 	useEffect(() => {
 		setSort(state.map(({ key, type, variables }) => ({ key, type, variables })))

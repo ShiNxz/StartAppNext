@@ -1,28 +1,16 @@
 import ImageGallery from 'react-image-gallery'
 import BlockTypes from '@/utils/page/Blocks'
-import ImageInput from './../Inputs/ImageInput';
+import ImageInput from './../Inputs/ImageInput'
 import Button from '@/components/UI/Button'
+import ImageList from '../Inputs/ImageList'
+import { Title } from '@/components/Page/Settings/Tabs'
+import { useState } from 'react'
 
-const CarouselBlock = () => {
-	const images = [
-		{
-			original: 'https://picsum.photos/id/1018/1000/600/',
-			thumbnail: 'https://picsum.photos/id/1018/250/150/',
-		},
-		{
-			original: 'https://picsum.photos/id/1015/1000/600/',
-			thumbnail: 'https://picsum.photos/id/1015/250/150/',
-		},
-		{
-			original: 'https://picsum.photos/id/1019/1000/600/',
-			thumbnail: 'https://picsum.photos/id/1019/250/150/',
-		},
-	]
-
+const CarouselBlock = ({ variables }) => {
 	return (
 		<>
 			<ImageGallery
-				items={images}
+				items={variables.pictures.map((pic) => ({ original: `/uploads/${pic.file}` }))}
 				showThumbnails={false}
 				showFullscreenButton={false}
 				isRTL={true}
@@ -36,10 +24,26 @@ const CarouselBlock = () => {
 
 export const CarouselBlockSettings = ({ blockKey, variables, close }) => {
 	const type = BlockTypes.filter((b) => b.id === 'carousel')[0]
+	const [images, setImages] = useState(variables.pictures)
 
 	return (
 		<>
-			<ImageInput name='' formats={['png', 'j[g']} multiple />
+			<ImageList
+				images={images}
+				blockId={blockKey}
+			/>
+
+			<Title
+				title='הוספת תמונה'
+				des='ניתן לבחור כמה תמונות ביחד'
+			/>
+			<ImageInput
+				name='custom/gallery'
+				formats={['png', 'jpeg']}
+				blockId={blockKey}
+				setImages={setImages}
+				multiple
+			/>
 
 			<Button
 				style='cyan'

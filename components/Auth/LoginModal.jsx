@@ -55,7 +55,7 @@ const Login = (props) => {
 			: setAlert({
 					show: true,
 					style: 'error',
-					message: fetchedData.error || error.response.data.error,
+					message: error,
 			  })
 
 		setLoading(false)

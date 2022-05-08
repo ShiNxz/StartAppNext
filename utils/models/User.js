@@ -49,7 +49,7 @@ const UserSchema = new mongoose.Schema({
 		title: String,
 		banner: String,
 		customLink: String,
-		blocks: [Object] 
+		blocks: [mongoose.Mixed] 
     },
     created_time: {
         type: Number,

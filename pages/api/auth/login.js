@@ -20,7 +20,7 @@ const handler = async (req, res) => {
 			identifier = identifier.trim().toLowerCase()
 
 			const user = await User.findOne({ $or: [{ email: identifier }, { username: identifier }] })
-			if (!user) return res.status(200).json({ success: false, message: 'לא נמצא משתמש קיים עם הפרטים שנרשמו!' })
+			if (!user) return res.status(200).json({ success: false, error: 'לא נמצא משתמש קיים עם הפרטים שנרשמו!' })
 
 			// TODO save user ip to db object lastLogin: { ip: 'x.x.x.x' }
 
@@ -36,7 +36,7 @@ const handler = async (req, res) => {
 
 				return res.status(200).json({ success: true, token })
 			} else {
-				return res.status(200).json({ success: false, message: 'הסיסמה אינה תואמת לשם המשתמש / כתובת האימייל' })
+				return res.status(200).json({ success: false, error: 'הסיסמה אינה תואמת לשם המשתמש / כתובת האימייל' })
 			}
 		}
 		default:

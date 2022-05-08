@@ -70,7 +70,7 @@ const Register = ( props ) => {
             setAlert({
                 show: true,
                 style: "error",
-                message: fetchedData.error || error.response.data.error
+                message: error
             })
         
         App.setProgress(100)

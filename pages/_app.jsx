@@ -1,7 +1,7 @@
 import '../styles/globals.scss'
 import Head from 'next/head'
 import Layout from '@/components/UI/Layout'
-
+import { NextUIProvider } from '@nextui-org/react'
 import { AppContextProvider } from '@/data/AppContext'
 import userContext from '@/data/UserContext'
 import useUser from '@/data/useUser'
@@ -44,23 +44,25 @@ const App = (props) => {
 				/>
 			</Head>
 
-			<CacheProvider value={cacheRtl}>
-				<ThemeProvider theme={theme}>
-					<AppContextProvider>
-						<SnackbarProvider
-							maxSnack={3}
-							anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-							TransitionComponent={Collapse}
-						>
-							<userContext.Provider value={ userValues }>
-								<Layout>
-									<Component {...pageProps} />
-								</Layout>
-							</userContext.Provider>
-						</SnackbarProvider>
-					</AppContextProvider>
-				</ThemeProvider>
-			</CacheProvider>
+			<NextUIProvider>
+				<CacheProvider value={cacheRtl}>
+					<ThemeProvider theme={theme}>
+						<AppContextProvider>
+							<SnackbarProvider
+								maxSnack={3}
+								anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+								TransitionComponent={Collapse}
+							>
+								<userContext.Provider value={userValues}>
+									<Layout>
+										<Component {...pageProps} />
+									</Layout>
+								</userContext.Provider>
+							</SnackbarProvider>
+						</AppContextProvider>
+					</ThemeProvider>
+				</CacheProvider>
+			</NextUIProvider>
 		</>
 	)
 }

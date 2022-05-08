@@ -52,7 +52,7 @@ export default {
 			description: 'התמונה אשר תוצג בפרופיל',
 			inputName: 'avatar',
 			role: 1,
-			formats: ['png', 'jpeg']
+			formats: ['png', 'jpeg'] // TODO make check in db aswell
 		},
 		{
 			title: 'באנר',

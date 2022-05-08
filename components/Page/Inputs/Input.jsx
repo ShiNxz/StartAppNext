@@ -30,7 +30,6 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 				setTimeout(() => {
 					setLoading(false)
 				}, 300)
-
 			}, 1000)
 		}),
 		[]
@@ -60,10 +59,8 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 						<LinearProgress color={!!error ? 'error' : saved?.success ? 'success' : 'info'} />
 					</Box>
 				) : saved ? (
-					// <span className={`${saved?.success ? 'text-green-700' : 'text-red-700'} font-medium`}>
 					saved?.data?.message
 				) : (
-					// </span>
 					helper
 				)
 			}

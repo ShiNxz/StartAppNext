@@ -47,8 +47,10 @@ const handler = async (req, res) => {
             form.parse(req, async (err, fields, files) => {
                 if(Object.entries(files).length < 1) return;
 
-                const [key, value] = Object.entries(files)[0]
+                let [key, value] = Object.entries(files)[0]
                 
+				key = key.split(':')[0]
+
                 user[key] = value.path.replace(`public\\uploads\\`, '')
 
                 user.markModified(user[key])
