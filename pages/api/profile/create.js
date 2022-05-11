@@ -36,10 +36,13 @@ const handler = async (req, res) => {
             const page = {
                 blocks: [
                     {
-                        type: 0,
-                        title: 'דוגמה',
-                        text: 'בלוק לדוגמה'
+						key: 'aboutMe-1',
+                        type: 'aboutMe',
+                        variables: {
+							text: 'טקסט לדוגמה...'
+						}
                     }
+					
                 ]
             }
 
