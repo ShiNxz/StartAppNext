@@ -1,16 +1,35 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect, useRef } from 'react'
+import LoadingBar from 'react-top-loading-bar'
+import Loading from '@/components/UI/LoadingBackdrop'
 
 const AppContext = createContext()
 
 export const AppContextProvider = ({ children }) => {
-  const [progress, setProgress] = useState(0)
-  const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(false)
+	const LoadingRef = useRef(null)
 
-  return (
-    <AppContext.Provider value={{ progress, setProgress, loading, setLoading }} >
-      {children}
-    </AppContext.Provider>
-  )
+	// Loader Methods
+	const loader = {
+		start: () => LoadingRef.current.continuousStart(),
+		complete: () => LoadingRef.current.complete()
+	}
+
+	useEffect(() => {
+		loading && loader.start()
+		!loading && loader.complete()
+	}, [loading])
+
+	return (
+		<AppContext.Provider value={{ loading, setLoading, loader }}>
+			<Loading loading={loading} />
+			<LoadingBar
+				color='#0099ff'
+				containerStyle={{ direction: 'ltr' }}
+				ref={LoadingRef}
+			/>
+			{children}
+		</AppContext.Provider>
+	)
 }
 
 export default AppContext

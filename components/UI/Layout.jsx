@@ -1,30 +1,15 @@
-import LoadingBar from 'react-top-loading-bar'
-import { useContext, useEffect } from 'react'
+import Footer from '@/components/UI/Footer'
+import Navbar from '@/components/UI/Navbar'
 
-import userContext from '@/data/UserContext'
-import AppContext from '@/data/AppContext'
-import Loading from '@/components/UI/LoadingBackdrop'
-import FloatingBar from './FloatingBar'
-
-const Layout = ({ children }) => {
-	const { loading: userLoading } = useContext(userContext)
-	const { loading: appLoading, layout, setLayout, setProgress, progress } = useContext(AppContext)
-
-	useEffect(() => {
-		appLoading && setProgress(30)
-		!appLoading && setProgress(100)
-	}, [appLoading])
-
-	return (
-		<>
-			<Loading loading={appLoading} />
-			<LoadingBar
-				color='#0099ff'
-				progress={progress}
-				onLoaderFinished={() => setProgress(0)}
-			/>
-			{children}
-		</>
+const Layout = ({ def, children }) => {
+	return def ? (
+		<div className='flex flex-col content-between'>
+			<Navbar />
+			<main className='mt-14'> { children } </main>
+			<Footer />
+		</div>
+	) : (
+		<></>
 	)
 }
 

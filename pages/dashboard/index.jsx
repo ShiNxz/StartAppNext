@@ -11,9 +11,6 @@ import ColoredBox from '@/components/Dashboard/ColoredBox'
 import SettingsBar from '@/components/Dashboard/SettingsBar'
 
 const Dashboard = () => {
-	const { setLoading, setLayout } = useContext(AppContext)
-	setLoading(false)
-	//setLayout(false)
 
 	return (
 		<>

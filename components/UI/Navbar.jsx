@@ -7,7 +7,7 @@ import UserMenu from '../User/UserMenu'
 import HomeIcon from '@mui/icons-material/Home'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
-import Button from '@/components/UI/Button'
+import Button from '@/Next/Button'
 
 const Navbar = () => {
 	const [loginModal, setLoginModal] = useState(false)
@@ -42,36 +42,8 @@ const Navbar = () => {
 							{loggedIn ? (
 								<UserMenu />
 							) : (<>
-								<Button style='blue' onClick={() => setRegisterModal(true)} className='ml-2' size='sm'>צור דף אישי משלך</Button>
-								<Button style='cyan' onClick={() => setLoginModal(true)} outline size='sm'>התחבר</Button>
-								<div className='text-sm font-medium'>
-									{/* <a
-										className='p-2'
-										onClick={() => setLoginModal(true)}
-									>
-										התחבר
-									</a>
-									<a
-										className='p-2'
-										onClick={() => setRegisterModal(true)}
-									>
-										צור דף אישי משלך!
-									</a> */}
-									
-
-									<>
-										<LoginModal
-											open={loginModal}
-											setOpen={setLoginModal}
-											setOpenRegister={setRegisterModal}
-										/>
-										<RegisterModal
-											open={registerModal}
-											setOpen={setRegisterModal}
-											setOpenLogin={setLoginModal}
-										/>
-									</>
-								</div>
+								<Button onClick={() => setLoginModal(true)} className='!w-20 !min-w-fit'size='sm' light>התחבר</Button>
+								<Button onClick={() => setRegisterModal(true)} size='sm'>צור דף אישי משלך</Button>
 								</>
 							)}
 						</div>

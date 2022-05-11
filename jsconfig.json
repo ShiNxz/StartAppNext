@@ -11,6 +11,7 @@
             "@/components/*": ["components/*"],
             "@/inputs/*": ["components/Page/Inputs/*"],
             "@/UI/*": ["components/UI/*"],
+            "@/Next/*": ["components/NextUI/*"],
             "@/data/*": ["utils/data/*"],
             "@/utils/*": ["utils/*"],
             "@/func/*": ["utils/functions*"],

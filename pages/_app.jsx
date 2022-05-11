@@ -1,6 +1,5 @@
 import '../styles/globals.scss'
 import Head from 'next/head'
-import Layout from '@/components/UI/Layout'
 import { NextUIProvider } from '@nextui-org/react'
 import { AppContextProvider } from '@/data/AppContext'
 import userContext from '@/data/UserContext'
@@ -16,6 +15,7 @@ import { SnackbarProvider } from 'notistack'
 
 import Collapse from '@mui/material/Collapse'
 import { useMemo } from 'react'
+import { lightTheme } from './../theme';
 
 const cacheRtl = createCache({
 	key: 'muirtl',
@@ -44,7 +44,7 @@ const App = (props) => {
 				/>
 			</Head>
 
-			<NextUIProvider>
+			<NextUIProvider theme={lightTheme}>
 				<CacheProvider value={cacheRtl}>
 					<ThemeProvider theme={theme}>
 						<AppContextProvider>
@@ -54,9 +54,7 @@ const App = (props) => {
 								TransitionComponent={Collapse}
 							>
 								<userContext.Provider value={userValues}>
-									<Layout>
-										<Component {...pageProps} />
-									</Layout>
+									<Component {...pageProps} />
 								</userContext.Provider>
 							</SnackbarProvider>
 						</AppContextProvider>

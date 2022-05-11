@@ -28,8 +28,6 @@ const handler = async(req, res) => {
                     })
                 })
 
-                console.log(filesArray)
-
             })
 
             form.onPart = function(part) {

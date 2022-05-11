@@ -14,7 +14,7 @@ body {
 	font-family: 'Rubik', sans-serif;
 	direction: rtl;
 	//overflow-y: overlay;
-	@apply bg-slate-200 relative;
+	@apply bg-slate-200 relative #{!important};
 }
 
 main {
@@ -143,4 +143,9 @@ label {
 	grid-template-columns: repeat(3, minmax(0, 1fr));
 	grid-gap: 10px;
 	
+}
+
+.nextui-input-clear-button {
+	left: 5px;
+	right: unset!important;
 }
