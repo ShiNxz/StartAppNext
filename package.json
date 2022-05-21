@@ -39,6 +39,7 @@
     "react-draggable": "^4.4.5",
     "react-iconly": "^2.2.5",
     "react-image-gallery": "^1.2.7",
+    "react-parallax-tilt": "^1.7.34",
     "react-scroll": "^1.8.7",
     "react-sortablejs": "^6.1.1",
     "react-top-loading-bar": "^2.1.0",

@@ -1,19 +1,76 @@
-import Layout from '@/components/UI/Layout'
+import Navbar from '@/components/Index/Navbar'
+import Footer from '@/components/Index/Footer'
 import Head from 'next/head'
+import Main from '@/components/Index/Sections/Main'
+import Features from '@/components/Index/Sections/FeaturesMain'
+import FeaturesSecond from '@/components/Index/Sections/FeaturesSecond'
+import ExamplePages from '@/components/Index/Sections/ExamplePages'
+import Stats from '@/components/Index/Sections/Stats'
+import PriceTables from '@/components/Index/Sections/PriceTables'
+import FAQ from '@/components/Index/Sections/FAQ'
+import Newsletter from '@/components/Index/Sections/Newsletter'
+import News from '@/components/Index/Sections/News'
 
-function Home() {
+const Block = ({ children }) => {
+	return <div>{children}</div>
+}
+
+const blocks = [
+	{
+		name: 'Main',
+		component: <Main />,
+	},
+	{
+		name: 'Features',
+		component: <Features />,
+	},
+	{
+		name: 'FeaturesSecond',
+		component: <FeaturesSecond />,
+	},
+	{
+		name: 'ExamplePages',
+		component: <ExamplePages />,
+	},
+	{
+		name: 'Stats',
+		component: <Stats />,
+	},
+	{
+		name: 'News',
+		component: <News />,
+	},
+	{
+		name: 'PriceTables',
+		component: <PriceTables />,
+	},
+	{
+		name: 'FAQ',
+		component: <FAQ />,
+	},
+	{
+		name: 'Newsletter',
+		component: <Newsletter />,
+	},
+]
+
+const Home = () => {
 	return (
-		<div>
+		<>
 			<Head>
-				<title>INDEX PAGE</title>
-				<meta
-					name='viewport'
-					content='initial-scale=1.0, width=device-width'
-				/>
+				<title>StartApp | ברוכים הבאים!</title>
 			</Head>
 
-			<Layout def>sadfs</Layout>
-		</div>
+			<Navbar />
+
+			<main className='mt-16'>
+				{blocks.map((b) => (
+					<Block key={b.name}> {b.component} </Block>
+				))}
+			</main>
+
+			<Footer />
+		</>
 	)
 }
 
