@@ -1,5 +1,5 @@
-import NextButton from '@nextui-org/react/Button'
-import Loading from '@nextui-org/react/Loading'
+import NextButton from '@nextui-org/react/button'
+import Loading from '@nextui-org/react/loading'
 
 const Button = ({
 	children,

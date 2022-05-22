@@ -1,5 +1,5 @@
 import bg_features_secondary from '@/public/assets/bg_features_secondary.png'
-import Input from '@nextui-org/react/Input'
+import Input from '@nextui-org/react/input'
 import Button from '@/Next/Button'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { useState, useContext } from 'react'

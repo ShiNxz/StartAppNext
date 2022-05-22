@@ -1,6 +1,6 @@
 // NEXT-UI INPUT
-import Input from '@nextui-org/react/Input'
-import Loading from '@nextui-org/react/Loading'
+import Input from '@nextui-org/react/input'
+import Loading from '@nextui-org/react/loading'
 
 const InputForm = ({
 	required,

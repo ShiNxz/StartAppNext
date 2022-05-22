@@ -1,6 +1,6 @@
 // NEXT-UI INPUT
-import Textarea from '@nextui-org/react/Textarea'
-import Loading from '@nextui-org/react/Loading'
+import Textarea from '@nextui-org/react/textarea'
+import Loading from '@nextui-org/react/loading'
 
 const InputForm = ({
 	required,
