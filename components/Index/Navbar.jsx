@@ -4,12 +4,13 @@ import { useState, useContext } from 'react'
 import RegisterModal from '@/components/Auth/RegisterModal'
 import LoginModal from '@/components/Auth/LoginModal'
 import userContext from '@/data/UserContext'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import UserMenu from '../User/UserMenu'
 import HomeIcon from '@mui/icons-material/Home'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import Button from '@/Next/Button'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 
 const Navbar = () => {
 	const [loginModal, setLoginModal] = useState(false)
@@ -19,6 +20,8 @@ const Navbar = () => {
 
 	const { loggedIn } = useContext(userContext)
 
+	const router = useRouter()
+
 	return (
 		<nav className='bg-white duration-300 dark:bg-primary-dark z-40 fixed w-full h-18 top-0'>
 			<div className='container mx-auto h-full'>
@@ -26,20 +29,19 @@ const Navbar = () => {
 					<div className='flex items-center'>
 						<div className='hidden md:flex ml-10'>
 							<div className='text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium'>
-								<Button onClick={() => Router.push('/dashboard')} size='sm'>אזור אישי</Button>
+								<Button onClick={() => loggedIn ? Router.push('/dashboard') : Router.push('/register') } size='sm'>{ loggedIn ? 'אזור אישי' : 'צור דף אישי משלך' } <KeyboardBackspaceIcon className='mr-3' /></Button>
 							</div>
 						</div>
 					</div>
 
 					<div className='hidden md:flex justify-center w-full ml-10'>
-						<a onClick={() => Router.push('/')} className='text-black font-normal ml-8'>עמוד ראשי</a>
-						<a onClick={() => Router.push('/')} className='text-black font-normal ml-8'>עמוד ראשי</a>
-						<a onClick={() => Router.push('/')} className='text-black font-normal ml-8'>עמוד ראשי</a>
-						<a onClick={() => Router.push('/')} className='text-black font-normal ml-8'>עמוד ראשי</a>
+						{
+							Pages.map(({ name, route }) => <a key={name} onClick={() => Router.push(route)} className={`text-black ml-8 font-medium duration-300 decoration-2 hover:decoration-2 underline hover:underline ${route == router.route ? 'decoration-blue-500' : 'decoration-transparent'} hover:!decoration-blue-500`}>{ name }</a>)
+						}
 					</div>
 
 					<div className='hidden md:block'>
-						<a onClick={() => Router.push('/')} className='ml-4 flex items-center md:ml-6 font-semibold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 hover:text-transparent'>
+						<a onClick={() => Router.push('/')} className='ml-4 flex items-center md:ml-6 font-medium text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 hover:text-transparent'>
 							STARTAPP
 						</a>
 					</div>

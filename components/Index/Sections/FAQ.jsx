@@ -1,17 +1,21 @@
-import bg_features_secondary from '@/public/assets/bg_features_secondary.png'
-import { Collapse, Text, Grid } from '@nextui-org/react'
+import { Collapse, Text } from '@nextui-org/react'
 
-const Item = () => {
+const items = [
+	{
+		title: 'test',
+		text: 'test',
+	},
+]
+
+const Item = ({ title, text, index }) => {
 	return (
 		<Collapse
-			title='לורם איפסום דולור סיט אמט'
-			//expanded
+			title={title}
+			expanded={index == 1}
 			shadow={false}
+			id="1"
 		>
-			<Text>
-				לורם איפסום דולור סיט אמטלורם איפסום דולור סיט אמטלורם איפסום דולור סיט אמטלורם איפסום דולור סיט אמטלורם
-				איפסום דולור סיט אמטלורם איפסום דולור סיט אמט
-			</Text>
+			<Text>{text}</Text>
 		</Collapse>
 	)
 }
@@ -23,10 +27,14 @@ const FAQ = () => {
 
 			<div className='container z-20 py-6 relative text-right'>
 				<Collapse.Group splitted>
-					<Item/>
-					<Item/>
-					<Item/>
-					<Item/>
+					{items.map((i, index) => (
+						<Item
+							title={i.title}
+							text={i.text}
+							index={index}
+							key={i.title}
+						/>
+					))}
 				</Collapse.Group>
 			</div>
 		</div>

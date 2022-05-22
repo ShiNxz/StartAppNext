@@ -16,7 +16,7 @@ const Login = ({ setOpenRegister, open, setOpen }) => {
 					<a
 						onClick={RegisterHandle}
 						target='_blank'
-						className='text-sm text-blue-500 underline hover:text-blue-700'
+						className='text-sm text-blue-500 underline hover:text-blue-700 mr-1'
 					>
 						הרשם
 					</a>

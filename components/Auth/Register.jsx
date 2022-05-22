@@ -141,8 +141,9 @@ const Register = ({ setOpen }) => {
 				className='!w-full my-4'
 				loading={loading}
 				type='submit'
+				color='secondary'
 			>
-				התחבר
+				הרשם
 			</Button>
 		</form>
 	)

@@ -1,6 +1,7 @@
 import bg_features_secondary from '@/public/assets/bg_features_secondary.png'
 import Button from '@/Next/Button'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import Packages from '@/data/Packages'
 
 const CheckMark = () => {
 	return (
@@ -33,51 +34,30 @@ const CrossMark = () => {
 	)
 }
 
-const PriceTable = () => {
+const PriceTable = ({ title, description, price, advantages }) => {
 	return (
-		<div className='shadow-lg rounded-2xl w-[22rem] bg-white dark:bg-gray-800 p-6 text-right'>
+		<div className='shadow-lg rounded-2xl w-[21rem] bg-white dark:bg-gray-800 p-6 text-right duration-300 hover:shadow-xl hover:-translate-y-1'>
 			<p className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 text-3xl font-medium mb-3 mt-1'>
-				דף אישי
+				{title}
 			</p>
-			<p className='text-gray-900 dark:text-white text-3xl font-bold'>
-				0₪
-				<span className='text-gray-300 text-sm font-thin mr-2'>/ חודש</span>
-			</p>
-			<p className='text-gray-600 dark:text-gray-100 text-xs mt-4'>
-				אדיפיסינג אלית לפרומי בלוף קינץ תתיח לרעח. לורם איפסום דולור סיט אמט...
-			</p>
+			{price != -1 ? (
+				<p className='text-gray-900 dark:text-white text-3xl font-bold'>
+					{price}₪<span className='text-gray-600 text-base font-thin mr-2'>/ חודש</span>
+				</p>
+			) : (
+				<p className='text-gray-900 dark:text-white text-3xl font-bold'>צרו קשר</p>
+			)}
+			<p className='text-gray-600 dark:text-gray-100 text-sm mt-4'>{description}</p>
 			<ul className='text-sm text-gray-600 dark:text-gray-100 mt-6 mb-6 mx-0'>
-				<li className='mb-3 flex items-center'>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center'>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center '>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center '>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center '>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center opacity-50'>
-					<CheckMark />
-					אדיפיסינג אלית לפרומי
-				</li>
-				<li className='mb-3 flex items-center opacity-50'>
-					<CrossMark />
-					אדיפיסינג אלית לפרומי
-				</li>
+				{advantages.map(({ title, include }) => (
+					<li className='mb-3 flex items-center'>
+						{include ? <CheckMark /> : <CrossMark />} {title}
+					</li>
+				))}
 			</ul>
 			<Button className='mt-8 !w-full'>
-				הרשם <KeyboardBackspaceIcon className='mr-3' />
+				{price == 0 ? <span>הרשם</span> : price == -1 ? <span>צור קשר</span> : <span>רכישה</span>}{' '}
+				<KeyboardBackspaceIcon className='mr-3' />
 			</Button>
 		</div>
 	)
@@ -89,9 +69,15 @@ const PriceTables = () => {
 			<span className='font-medium text-2xl'>הקימו דף עסקי משלכם!</span>
 
 			<div className='container z-20 grid grid-cols-3 relative place-items-center py-6'>
-				<PriceTable />
-				<PriceTable />
-				<PriceTable />
+				{Packages.map((p) => (
+					<PriceTable
+						key={p.title}
+						title={p.title}
+						description={p.description}
+						price={p.price}
+						advantages={p.advantages}
+					/>
+				))}
 			</div>
 			<div
 				style={{ backgroundImage: `url(${bg_features_secondary.src})` }}

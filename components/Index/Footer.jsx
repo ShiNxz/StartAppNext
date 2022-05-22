@@ -29,7 +29,7 @@ const Links = [
 
 const Footer = () => {
 	return (
-		<div className='bg-gray-200 w-full py-12'>
+		<div className='bg-slate-100 border-t border-slate-300 w-full py-12'>
 			<div className='container px-8 flex flex-row justify-between'>
 				<div className='flex flex-row'>
 					<div className='ml-12'>

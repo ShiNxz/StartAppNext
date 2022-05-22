@@ -13,7 +13,7 @@ const Tag = ({ text }) => {
 
 const New = () => {
 	return (
-		<div className='overflow-hidden shadow-lg rounded-xl h-90 w-60 md:w-80 cursor-pointer m-auto text-right'>
+		<div className='overflow-hidden shadow-lg rounded-xl h-90 w-60 md:w-80 cursor-pointer m-auto text-right duration-300 hover:shadow-xl hover:-translate-y-0.5'>
 			<img
 				alt='blog photo'
 				src={test.src}
@@ -34,6 +34,7 @@ const New = () => {
 				<Button
 					size='sm'
 					className='my-6'
+					color='secondary'
 				>
 					המשך לקרוא... <KeyboardBackspaceIcon className='mr-3' />
 				</Button>

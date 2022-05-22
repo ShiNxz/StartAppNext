@@ -63,7 +63,7 @@ const Home = () => {
 
 			<Navbar />
 
-			<main className='mt-16'>
+			<main className='mt-16 min-h-unset'>
 				{blocks.map((b) => (
 					<Block key={b.name}> {b.component} </Block>
 				))}
