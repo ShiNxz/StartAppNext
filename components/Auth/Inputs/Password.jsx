@@ -1,5 +1,5 @@
 import Input from '@/Next/Input'
-import Spacer from '@nextui-org/react/Spacer'
+import Spacer from '@nextui-org/react/spacer'
 import { isStrongPassword } from 'validator'
 
 const PasswordInput = ({ status, setStatus }) => {

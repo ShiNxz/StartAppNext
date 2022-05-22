@@ -1,5 +1,5 @@
 import NextCheckbox from '@nextui-org/react/Checkbox'
-import Spacer from '@nextui-org/react/Spacer'
+import Spacer from '@nextui-org/react/spacer'
 
 const Checkbox = ({ checked, setChecked, children, size, color }) => {
 	return (

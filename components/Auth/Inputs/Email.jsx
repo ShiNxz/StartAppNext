@@ -1,6 +1,6 @@
 import { isEmail } from 'validator'
 import Input from '@/Next/Input'
-import Spacer from '@nextui-org/react/Spacer'
+import Spacer from '@nextui-org/react/spacer'
 
 const EmailInput = ({ status, setStatus, title }) => {
 	// Security Checks

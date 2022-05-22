@@ -2,7 +2,7 @@ import UsernameInput from '@/components/Auth/Inputs/Name'
 import EmailInput from '@/components/Auth/Inputs/Email'
 import PasswordInput from '@/components/Auth/Inputs/Password'
 import Button from '@/Next/Button'
-import Spacer from '@nextui-org/react/Spacer'
+import Spacer from '@nextui-org/react/spacer'
 
 import Router from 'next/router'
 import cookie from 'js-cookie'
