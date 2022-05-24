@@ -4,7 +4,6 @@ import SettingsInput from '../Inputs/Input'
 
 export const CustomTextBoxSettings = ({ blockKey, variables, close }) => {
 	const type = BlockTypes.filter((b) => b.id === 'customTextBox')[0]
-	console.log(blockKey)
 
 	return (
 		<>

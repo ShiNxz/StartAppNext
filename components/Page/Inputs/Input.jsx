@@ -17,7 +17,6 @@ const SettingsInput = ({ name, initValue, helper, title, validate, className, sx
 
 	const handleChange = useCallback(
 		debounce(async (options) => {
-			console.log(options)
 			setLoading(true)
 			const { success, data } = await Axios('/api/profile/edit', { options }, 'POST')
 

@@ -1,4 +1,4 @@
-import Footer from '@/components/UI/Footer'
+import Footer from '@/components/Page/UI/Footer'
 import Navbar from '@/components/UI/Navbar'
 
 const Layout = ({ def, children }) => {

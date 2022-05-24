@@ -52,7 +52,7 @@ const RegularGallery = ({ variables }) => {
 				speed={500}
 				mode='lg-fade'
 			>
-				{variables.pictures.map((pic) => (
+				{variables.pictures?.map((pic) => (
 					<a href={`/uploads/${pic.file}`}>
 						<img
 							alt={pic.title}

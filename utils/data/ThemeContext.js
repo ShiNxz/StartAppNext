@@ -1,10 +1,9 @@
-import { createTheme as createNextUITheme } from '@nextui-org/react'
+import { createTheme as createNextUITheme, NextUIProvider } from '@nextui-org/react'
 import createCache from '@emotion/cache'
 import { createTheme as createMuiTheme, ThemeProvider } from '@mui/material/styles'
 import { prefixer } from 'stylis'
 import { CacheProvider } from '@emotion/react'
 import rtlPlugin from 'stylis-plugin-rtl'
-import { NextUIProvider } from '@nextui-org/react'
 
 // MUI
 const cacheRtl = createCache({
@@ -21,7 +20,7 @@ const muiTheme = createMuiTheme({
 
 // NextUI
 const fonts = {
-	sans: "'Rubik', Rubik, sans-serif;",
+	sans: "'Rubik', sans-serif;",
 }
 
 const sharedTheme = {
@@ -38,12 +37,37 @@ const sharedTheme = {
 			secondarySolidHover: '$cyan700',
 			secondarySolidContrast: '$white', // commonly used for text inside the component
 			secondaryShadow: '$cyan500',
+
+			yellowLight: '$yellow200',
+			yellowLightHover: '$yellow300', // commonly used on hover state
+			yellowLightActive: '$yellow400', // commonly used on pressed state
+			yellowLightContrast: '$yellow600', // commonly used for text inside the component
+			yellow: '$yellow600',
+			yellowBorder: '$yellow500',
+			yellowBorderHover: '$yellow600',
+			yellowSolidHover: '$yellow700',
+			yellowSolidContrast: '$white', // commonly used for text inside the component
+			yellowShadow: '$yellow500',
+
+			purpleLight: '$purple200',
+			purpleLightHover: '$purple300', // commonly used on hover state
+			purpleLightActive: '$purple400', // commonly used on pressed state
+			purpleLightContrast: '$purple600', // commonly used for text inside the component
+			purple: '$purple600',
+			purpleBorder: '$purple500',
+			purpleBorderHover: '$purple600',
+			purpleSolidHover: '$purple700',
+			purpleSolidContrast: '$white', // commonly used for text inside the component
+			purpleShadow: '$purple500',
 		},
 		letterSpacings: {
 			tighter: '0em',
 		},
 		fontSizes: {
 			md: '1.2rem'
+		},
+		space: {
+			md: '0.01rem',
 		}
 	},
 }

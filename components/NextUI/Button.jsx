@@ -18,6 +18,7 @@ const Button = ({
 	type,
 	as,
 	onClick,
+	css
 }) => {
 	return (
 		<NextButton
@@ -45,6 +46,7 @@ const Button = ({
 			type={type}
 			as={as}
 			onClick={onClick}
+			css={css}
 		>
 			{loading ? 'אנא המתן...' : children}
 		</NextButton>

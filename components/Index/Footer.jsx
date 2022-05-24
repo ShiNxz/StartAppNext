@@ -81,7 +81,7 @@ const Footer = () => {
 					>
 						STARTAPP
 					</a>
-					<span className='text-xs block mb-4'>2022 - 2021</span>
+					<span className='text-xs block mb-4'>© 2022 - 2021</span>
 					<span className='text-xs block'>contact@startapp.org.il</span>
 				</div>
 			</div>

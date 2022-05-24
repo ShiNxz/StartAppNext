@@ -1,6 +1,4 @@
 import bg_features_secondary from '@/public/assets/bg_features_secondary.png'
-import Button from '@/Next/Button'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import Packages from '@/data/Packages'
 
 const CheckMark = () => {
@@ -34,12 +32,10 @@ const CrossMark = () => {
 	)
 }
 
-const PriceTable = ({ title, description, price, advantages }) => {
+const PriceTable = ({ title, description, price, advantages, button }) => {
 	return (
 		<div className='shadow-lg rounded-2xl w-[21rem] bg-white dark:bg-gray-800 p-6 text-right duration-300 hover:shadow-xl hover:-translate-y-1'>
-			<p className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500 text-3xl font-medium mb-3 mt-1'>
-				{title}
-			</p>
+			{title}
 			{price != -1 ? (
 				<p className='text-gray-900 dark:text-white text-3xl font-bold'>
 					{price}₪<span className='text-gray-600 text-base font-thin mr-2'>/ חודש</span>
@@ -49,16 +45,16 @@ const PriceTable = ({ title, description, price, advantages }) => {
 			)}
 			<p className='text-gray-600 dark:text-gray-100 text-sm mt-4'>{description}</p>
 			<ul className='text-sm text-gray-600 dark:text-gray-100 mt-6 mb-6 mx-0'>
-				{advantages.map(({ title, include }) => (
-					<li className='mb-3 flex items-center'>
+				{advantages.map(({ title, include }, i) => (
+					<li
+						className='mb-3 flex items-center'
+						key={i}
+					>
 						{include ? <CheckMark /> : <CrossMark />} {title}
 					</li>
 				))}
 			</ul>
-			<Button className='mt-8 !w-full'>
-				{price == 0 ? <span>הרשם</span> : price == -1 ? <span>צור קשר</span> : <span>רכישה</span>}{' '}
-				<KeyboardBackspaceIcon className='mr-3' />
-			</Button>
+			{button}
 		</div>
 	)
 }
@@ -71,11 +67,12 @@ const PriceTables = () => {
 			<div className='container z-20 grid grid-cols-3 relative place-items-center py-6'>
 				{Packages.map((p) => (
 					<PriceTable
-						key={p.title}
+						key={p.price}
 						title={p.title}
 						description={p.description}
 						price={p.price}
 						advantages={p.advantages}
+						button={p.button}
 					/>
 				))}
 			</div>

@@ -33,6 +33,7 @@ const FAQ = () => {
 							text={i.text}
 							index={index}
 							key={i.title}
+							id={i.title}
 						/>
 					))}
 				</Collapse.Group>

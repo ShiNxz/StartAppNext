@@ -153,7 +153,7 @@ const Form = () => {
 				loading={loading}
 				type='submit'
 			>
-				התחבר
+				שלח פנייה
 			</Button>
 		</form>
 	)
